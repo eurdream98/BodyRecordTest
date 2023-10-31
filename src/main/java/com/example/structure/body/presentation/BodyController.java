@@ -39,6 +39,7 @@ public class BodyController {
         final List<BodyResponse> bodyResponses = bodyService.getAllBodys(memberCode);
         List<BodyResponse> lastBodyResponse = bodyResponses.subList(bodyResponses.size() - 1, bodyResponses.size());
 
+
         return lastBodyResponse;
     }
 
