@@ -76,6 +76,12 @@ public class ExerciseService {
         exerciseRepository.save(exercise);
     }
 
+    public void delete(final int exerciseCode) {
+        final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_CODE));
+        exerciseRepository.delete(exercise);
+    }
+
 
 
 
