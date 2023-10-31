@@ -37,6 +37,13 @@ public class ExerciseController {
        return ResponseEntity.ok(exerciseDetailResponse);
     }
 
+    /*운동기록 등록*/
+    @PostMapping
+    public ResponseEntity<Void>saveExercise(/*접근자*/ @RequestBody @Valid final ExerciseRequest exerciseRequest){
+        final int exerciseCode = exerciseService.save(/*접근자.getMemberCode*/1,exerciseRequest);
+        return ResponseEntity.created(URI.create("/exercise/log/"+exerciseCode)).build();
+    }
+
 
 
 
