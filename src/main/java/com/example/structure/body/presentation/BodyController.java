@@ -32,4 +32,14 @@ public class BodyController {
         return ResponseEntity.ok(bodyResponses);
     }
 
+    @GetMapping("/{memberCode}/latest")
+    public List<BodyResponse> getBodyDetail(@PathVariable Integer memberCode){
+
+
+        final List<BodyResponse> bodyResponses = bodyService.getAllBodys(memberCode);
+        List<BodyResponse> lastBodyResponse = bodyResponses.subList(bodyResponses.size() - 1, bodyResponses.size());
+
+        return lastBodyResponse;
+    }
+
 }
