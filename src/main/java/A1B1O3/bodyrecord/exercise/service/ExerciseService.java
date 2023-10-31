@@ -66,8 +66,14 @@ public class ExerciseService {
         final Exercise exercise = exerciseRepository.save(newExercise);
 
         return exercise.getExerciseCode();
+    }
 
+    public void update(int exerciseCode, ExerciseUpdateRequest exerciseUpdateRequest) {
+        final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_CODE));
 
+        exercise.update(exerciseUpdateRequest);
+        exerciseRepository.save(exercise);
     }
 
 
