@@ -52,6 +52,13 @@ public class ExerciseController {
         exerciseService.update(exerciseCode, exerciseUpdateRequest);
         return ResponseEntity.noContent().build();
     }
+    /*운동기록 삭제*/
+    @DeleteMapping("/{exerciseCode}")
+    public ResponseEntity<Void> deleteExercise(/*접근자*/ @PathVariable final int exerciseCode){
+        exerciseService.validateExerciseByMember(/*접근자.getMemberCode()*/ 1, exerciseCode);
+        exerciseService.delete(exerciseCode);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
