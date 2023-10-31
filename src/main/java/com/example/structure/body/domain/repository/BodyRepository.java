@@ -15,6 +15,9 @@ public interface BodyRepository extends JpaRepository<Body,Long> {
 
     List<Body> findAllByMemberCodeMemberCode(final Integer memberCode);
     Body save(BodyRequest bodyRequest);
+    boolean existsByMemberCodeAndBodyCode(final Integer memberCode, final Integer bodyCode);
 
+
+    public void deleteByMemberCodeMemberCode(final Integer memberCode);
 
 }

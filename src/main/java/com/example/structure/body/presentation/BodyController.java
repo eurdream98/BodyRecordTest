@@ -49,4 +49,9 @@ public class BodyController {
         return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{memberCode}")
+    public void deleteByMemberCode(@PathVariable Integer memberCode){
+        bodyService.deleteByMemberCode(memberCode);
+    }
+
 }

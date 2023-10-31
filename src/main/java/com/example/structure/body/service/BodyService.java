@@ -52,5 +52,11 @@ private final GoalCategoryRepository goalCategoryRepository;
         return bodyRepository.save(body);
     }
 
+    public void deleteByMemberCode(final Integer memberCode){
+        bodyRepository.deleteByMemberCodeMemberCode(memberCode);
+    }
+
+
+
 
 }
