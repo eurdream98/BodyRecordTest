@@ -44,8 +44,14 @@ public class ExerciseController {
         return ResponseEntity.created(URI.create("/exercise/log/"+exerciseCode)).build();
     }
 
-
-
+    /*운동기록 수정*/
+    @PutMapping("/{exerciseCode}")
+    public ResponseEntity<Void> updateExercise(
+            @PathVariable final int exerciseCode, @RequestBody @Valid final ExerciseUpdateRequest exerciseUpdateRequest){
+        exerciseService.validateExerciseByMember(/*접근자.getMemberCode*/1, exerciseCode);
+        exerciseService.update(exerciseCode, exerciseUpdateRequest);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
