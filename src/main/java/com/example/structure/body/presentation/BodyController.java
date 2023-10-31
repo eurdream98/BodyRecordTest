@@ -43,4 +43,10 @@ public class BodyController {
         return lastBodyResponse;
     }
 
+    @PostMapping
+    public ResponseEntity<Body> insert(@RequestBody BodyRequest bodyRequest) {
+        Body body = bodyService.insert(bodyRequest);
+        return new ResponseEntity<>(body, HttpStatus.CREATED);
+    }
+
 }

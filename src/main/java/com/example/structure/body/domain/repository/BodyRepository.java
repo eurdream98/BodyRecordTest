@@ -14,7 +14,7 @@ public interface BodyRepository extends JpaRepository<Body,Long> {
 
 
     List<Body> findAllByMemberCodeMemberCode(final Integer memberCode);
-
+    Body save(BodyRequest bodyRequest);
 
 
 }
