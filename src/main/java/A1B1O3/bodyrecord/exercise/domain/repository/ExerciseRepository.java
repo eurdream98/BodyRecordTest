@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
-    
+
     Optional<Exercise> findByExerciseCode(final int exerciseCode);
+
+    boolean existsByMemberMemberCodeAndExerciseCode(final int memberCode, final int exerciseCode);
 
 }
