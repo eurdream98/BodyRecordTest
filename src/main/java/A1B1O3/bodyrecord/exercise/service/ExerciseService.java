@@ -8,7 +8,7 @@ import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 
-import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
+//import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.member.Member;
 import A1B1O3.bodyrecord.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

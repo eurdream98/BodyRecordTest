@@ -1,4 +1,4 @@
-package A1B1O3.bodyrecord.member;
+package A1B1O3.bodyrecord.goalcategory.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
