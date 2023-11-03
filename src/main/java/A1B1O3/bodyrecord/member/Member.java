@@ -45,10 +45,6 @@ public class Member {
     private String memberEmail;
 
     @ManyToOne
-    @JoinColumn(name = "goalcategory_code")
-    private GoalCategory goalCategory;
-
-    @ManyToOne
     @JoinColumn(name = "body_code")
     private Body body;
 
@@ -63,7 +59,7 @@ public class Member {
     private LocalDateTime modifiedAt;
 
 
-    public Member(final int memberCode, final String memberSocialId, final String memberNickname, final char memberGender, final int memberAge, final String memberPhone, final String memberEmail, final GoalCategory goalCategory, final Body body) {
+    public Member(final int memberCode, final String memberSocialId, final String memberNickname, final char memberGender, final int memberAge, final String memberPhone, final String memberEmail, final Body body) {
         this.memberCode = memberCode;
         this.memberSocialId = memberSocialId;
         this.memberNickname = memberNickname;
@@ -71,7 +67,6 @@ public class Member {
         this.memberAge = memberAge;
         this.memberPhone = memberPhone;
         this.memberEmail = memberEmail;
-        this.goalCategory = goalCategory;
         this.body = body;
         this.state = ACTIVE;
         this.createdAt = LocalDateTime.now();
