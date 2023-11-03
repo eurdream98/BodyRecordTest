@@ -1,6 +1,7 @@
 package com.example.structure.member.domain.login;
 
 import com.example.structure.member.domain.login.model.GetSocialOAuthRes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.io.IOException;
 @RequestMapping("/app/accounts")
 public class AccountController {
     private final OAuthService oAuthService;
-    public AccountController(OAuthService oAuthService){
+    public AccountController(@Autowired OAuthService oAuthService) {
         this.oAuthService = oAuthService;
     }
 

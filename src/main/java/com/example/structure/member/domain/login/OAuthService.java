@@ -7,12 +7,13 @@ import com.example.structure.member.domain.login.model.GoogleOAuthToken;
 import com.example.structure.member.domain.login.model.GoogleUser;
 import com.example.structure.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 @Service
 @RequiredArgsConstructor
 public class OAuthService {

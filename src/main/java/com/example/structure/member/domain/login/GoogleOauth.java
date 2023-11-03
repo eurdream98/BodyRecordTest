@@ -21,26 +21,32 @@ import java.util.stream.Collectors;
 public class GoogleOauth implements SocialOauth {
     @Autowired
     private RestTemplate restTemplate;
-
+    private final String GOOGLE_SNS_LOGIN_PATH = "/app/accounts/auth/GOOGLE";
     //applications.yml 에서 value annotation을 통해서 값을 받아온다.
-    @Value("${spring.OAuth2.google.url}")
+    @Value("${spring.security.oauth2.provider.google.authorization-uri}")
     private String GOOGLE_SNS_LOGIN_URL;
 
-    @Value("${spring.OAuth2.google.client-id}")
+
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String GOOGLE_SNS_CLIENT_ID;
 
-    @Value("${spring.OAuth2.google.callback-url}")
+//    @Value("${spring.OAuth2.google.callback-url}")
+    @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
     private String GOOGLE_SNS_CALLBACK_URL;
 
-    @Value("${spring.OAuth2.google.client-secret}")
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String GOOGLE_SNS_CLIENT_SECRET;
 
-    @Value("${spring.OAuth2.google.scope}")
-    private String GOOGLE_DATA_ACCESS_SCOPE;
+//    @Value("${spring.security.oauth2.client.registration.google.scope}")
+private String[] GOOGLE_DATA_ACCESS_SCOPE = {
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile"
+};
 
     private final ObjectMapper objectMapper;
     @Override
     public String getOauthRedirectURL(){
+        String redirectURL = GOOGLE_SNS_LOGIN_PATH;
 
         Map<String,Object> params=new HashMap<>();
         params.put("scope",GOOGLE_DATA_ACCESS_SCOPE);
@@ -52,7 +58,7 @@ public class GoogleOauth implements SocialOauth {
         String parameterString=params.entrySet().stream()
                 .map(x->x.getKey()+"="+x.getValue())
                 .collect(Collectors.joining("&"));
-        String redirectURL=GOOGLE_SNS_LOGIN_URL+"?"+parameterString;
+        redirectURL += "?"+parameterString;
         System.out.println("redirectURL = " + redirectURL);
 
         return redirectURL;
