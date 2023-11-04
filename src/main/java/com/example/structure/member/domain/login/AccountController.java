@@ -15,11 +15,12 @@ public class AccountController {
     }
 
 //    @NoAuth
-    @GetMapping("/auth/{socialLoginType}")
-    public void socialLoginRedirect(@PathVariable(name="socialLoginType")String SocialLoginPath) throws IOException{
-        Constant.SocialLoginType socialLoginType = Constant.SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
-        oAuthService.request(socialLoginType);
-    }
+@GetMapping("/auth/{socialLoginType}")
+public String socialLoginRedirect(@PathVariable(name = "socialLoginType") String socialLoginPath) throws IOException {
+    Constant.SocialLoginType socialLoginType = Constant.SocialLoginType.valueOf(socialLoginPath.toUpperCase());
+    return oAuthService.getRedirectURL(socialLoginType);
+}
+
 
     @ResponseBody
     @GetMapping(value = "/auth/{socialLoginType}/callback")

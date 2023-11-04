@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,20 +24,26 @@ public class OAuthService {
 private final AccountProvider accountProvider;
 private  final JwtService jwtService;
 private final MemberRepository memberRepository;
-    public void request(Constant.SocialLoginType socialLoginType) throws IOException {
+    public String request(Constant.SocialLoginType socialLoginType) throws IOException {
         String redirectURL;
         switch (socialLoginType) {
             case GOOGLE: {
                 redirectURL = googleOauth.getOauthRedirectURL();
+                return redirectURL;
             }
-            break;
             default: {
                 throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
             }
         }
-        response.sendRedirect(redirectURL);
     }
-
+    public String getRedirectURL(Constant.SocialLoginType socialLoginType) {
+        switch (socialLoginType) {
+            case GOOGLE:
+                return googleOauth.getOauthRedirectURL();
+            default:
+                throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
+        }
+    }
     public GetSocialOAuthRes oAuthLogin(Constant.SocialLoginType socialLoginType, String code) throws IOException {
 
         switch (socialLoginType){
