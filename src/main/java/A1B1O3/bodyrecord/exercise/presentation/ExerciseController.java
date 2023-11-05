@@ -2,6 +2,7 @@ package A1B1O3.bodyrecord.exercise.presentation;
 
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
+import A1B1O3.bodyrecord.exercise.dto.response.ExerciseCalenderResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 //import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
@@ -29,16 +30,24 @@ import java.util.List;
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    /*나의 운동기록 전체 조회*/
-    @GetMapping
-    public ResponseEntity<List<ExerciseResponse>> getExercises(){
-        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(1);
-        return ResponseEntity.ok(exerciseResponse);
+    /*운동기록 캘린더 조회*/
+    @GetMapping("/calender")
+    public ResponseEntity<List<ExerciseCalenderResponse>> getExerciseCalender(){
+        final List<ExerciseCalenderResponse> exerciseCalenderResponse = exerciseService.getExerciseCalender(2);
+        return ResponseEntity.ok(exerciseCalenderResponse);
     }
+
+
+//    /*나의 운동기록 전체 조회*/
+//    @GetMapping
+//    public ResponseEntity<List<ExerciseResponse>> getExercises(){
+//        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(1);
+//        return ResponseEntity.ok(exerciseResponse);
+//    }
 
     /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
-    public ResponseEntity<ExerciseDetailResponse> getExercises(@PathVariable final int exerciseCode)
+    public ResponseEntity<ExerciseDetailResponse> getExercise(@PathVariable final int exerciseCode)
     {
         exerciseService.validateExerciseByMember(/* 접근자.getMemberCode() */ 1, exerciseCode);
        final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(1);
@@ -60,6 +69,7 @@ public class ExerciseController {
         exerciseService.update(exerciseCode, exerciseUpdateRequest);
         return ResponseEntity.noContent().build();
     }
+
     /*운동기록 삭제*/
     @DeleteMapping("/{exerciseCode}")
     public ResponseEntity<Void> deleteExercise(/*접근자*/ @PathVariable final int exerciseCode){
@@ -68,14 +78,6 @@ public class ExerciseController {
         return ResponseEntity.noContent().build();
     }
 
-    /*운동기록 카테고리별 검색*/
-    @GetMapping("/search/category/{goalCategoryCode}")
-    public ResponseEntity<Slice<SearchResponse>> searchCategoryExercise(@PathVariable final int goalCategoryCode,
-                                                                        @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchCategory(true, goalCategoryCode, pageable);
-        return ResponseEntity.ok(searchResponse);
-
-    }
 
     /*운동기록 체성분별 검색*/
     @GetMapping("/search/body/{weight}/{fat}/{muscle}")
@@ -86,20 +88,6 @@ public class ExerciseController {
         final Slice<SearchResponse> searchResponse = exerciseService.searchBody(true, weight, fat, muscle, pageable);
         return ResponseEntity.ok(searchResponse);
     }
-
-    /*운동기록 카테고리&체성분 통합 검색*/
-    @GetMapping("/search/{goalCategoryCode}/{weight}/{fat}/{muscle}")
-    public ResponseEntity<Slice<SearchResponse>> searchTotalExercise(@PathVariable final int goalCategoryCode,
-                                                                     @PathVariable final float weight,
-                                                                     @PathVariable final float fat,
-                                                                     @PathVariable final float muscle,
-                                                                     @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchTotal(true, goalCategoryCode, weight, fat, muscle, pageable);
-        return ResponseEntity.ok(searchResponse);
-
-    }
-
-
 
 
 }

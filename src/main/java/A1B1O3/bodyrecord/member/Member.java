@@ -1,6 +1,5 @@
 package A1B1O3.bodyrecord.member;
 
-import A1B1O3.bodyrecord.goalcategory.domain.GoalCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
