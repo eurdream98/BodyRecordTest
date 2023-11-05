@@ -39,22 +39,11 @@ public class Member {
     private String memberName;
 
     @Column(nullable = false)
-    private Character memberGender;
-
-    @Column(nullable = false)
-    private Integer memberAge;
-
-    @Column(nullable = false)
-    private String memberPhone;
-
-    @Column(nullable = false)
-    private String memberEmail;
-
-    @Column(nullable = false)
     private String memberNickname;
 
     @Column(nullable = false)
     private Integer goalcategoryCode;
+
 
     @Enumerated(EnumType.STRING)
     private MemberState state;
@@ -81,14 +70,10 @@ public class Member {
 //        this.modifiedAt = modifiedAt;
 //    }
 
-    public Member(Integer memberCode, String memberSocialid, String memberName, Character memberGender, Integer memberAge, String memberPhone, String memberEmail, String memberNickname, Integer goalcategoryCode, MemberState state, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname, Integer goalcategoryCode, MemberState state, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.memberCode = memberCode;
         this.memberSocialid = memberSocialid;
         this.memberName = memberName;
-        this.memberGender = memberGender;
-        this.memberAge = memberAge;
-        this.memberPhone = memberPhone;
-        this.memberEmail = memberEmail;
         this.memberNickname = memberNickname;
         this.goalcategoryCode = goalcategoryCode;
         this.state = state;

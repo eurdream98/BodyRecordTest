@@ -5,8 +5,7 @@ import javax.persistence.Enumerated;
 
 
 public enum MemberState {
-
-    DORMANT,
     ACTIVE,
-    DELETED
+    DELETED,
+    DORMANT
 }
