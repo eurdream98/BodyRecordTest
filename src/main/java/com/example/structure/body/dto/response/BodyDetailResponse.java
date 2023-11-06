@@ -14,11 +14,11 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
 public class BodyDetailResponse {
-    private final Integer bodyCode;
+    private final int bodyCode;
     private final float weight;
     private final float fat;
     private final float muscle;
-    private final StatusType status; // state 필드 추가
+    private final StatusType status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

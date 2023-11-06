@@ -4,10 +4,11 @@ import com.example.structure.body.domain.Body;
 import com.example.structure.body.domain.repository.BodyRepository;
 import com.example.structure.body.dto.request.BodyRequest;
 import com.example.structure.body.dto.response.BodyResponse;
-import com.example.structure.goalCateogry.domain.GoalCategory;
-import com.example.structure.goalCateogry.domain.repostiory.GoalCategoryRepository;
+//import com.example.structure.goalCateogry.domain.GoalCategory;
+//import com.example.structure.goalCateogry.domain.repostiory.GoalCategoryRepository;
 import com.example.structure.member.domain.Member;
 import com.example.structure.member.domain.MemberState;
+import com.example.structure.member.domain.login.model.GoogleUser;
 import com.example.structure.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,6 @@ public class BodyService {
 
     private final BodyRepository bodyRepository;
     private final MemberRepository memberRepository;
-private final GoalCategoryRepository goalCategoryRepository;
     @Transactional(readOnly = true)
    public List<BodyResponse> getAllBodys(final Integer memberCode){
         final List<Body> bodys = bodyRepository.findAllByMemberCodeMemberCode(memberCode);
@@ -36,16 +36,14 @@ private final GoalCategoryRepository goalCategoryRepository;
     }
     @Transactional
     public Body insert(BodyRequest bodyRequest){
-        GoalCategory goalCategory = new GoalCategory();
-        goalCategory.setGoalcategoryName("Some Category Name");
-        goalCategory = goalCategoryRepository.save(goalCategory);
+
         Member member = new Member();
         member.setMemberCode(1);
-        member.setMemberName("고동환");
-        member.setMemberSocialid("rhehdghks");
+        member.setMemberName(member.getMemberName());
+        member.setMemberSocialid(member.getMemberSocialid());
 //        member.setState(MemberState.ACTIVE);
         member.setState(MemberState.ACTIVE);
-        member.setGoalcategoryCode(goalCategory.getGoalcategoryCode());
+        member.setGoalcategoryName(member.getGoalcategoryName());
         member = memberRepository.save(member);
         Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getFat(),bodyRequest.getMuscle(),member);
         return bodyRepository.save(body);

@@ -7,6 +7,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 import java.time.LocalDateTime;
+
+import com.example.structure.body.domain.Body;
+import com.example.structure.member.domain.login.model.GoogleUser;
+import com.example.structure.member.dto.request.MemberRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +46,7 @@ public class Member {
     private String memberNickname;
 
     @Column(nullable = false)
-    private Integer goalcategoryCode;
+    private String goalcategoryName;
 
 
     @Enumerated(EnumType.STRING)
@@ -55,29 +59,22 @@ public class Member {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-//    public Member(Long memberCode, String memberSocialId, String memberName, String memberGender, int memberAge, String memberPhone, String memberEmail, String memberNickName, String goalCategoryCode, MemberState status, LocalDateTime createdAt, LocalDateTime modifiedAt) {
-//        this.memberCode = memberCode;
-//        this.memberSocialId = memberSocialId;
-//        this.memberName = memberName;
-//        this.memberGender = memberGender;
-//        this.memberAge = memberAge;
-//        this.memberPhone = memberPhone;
-//        this.memberEmail = memberEmail;
-//        this.memberNickName = memberNickName;
-//        this.goalCategoryCode = goalCategoryCode;
-//        this.state = ACTIVE;
-//        this.createdAt = createdAt;
-//        this.modifiedAt = modifiedAt;
-//    }
 
-    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname, Integer goalcategoryCode, MemberState state, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname, String goalcategoryName) {
         this.memberCode = memberCode;
         this.memberSocialid = memberSocialid;
         this.memberName = memberName;
         this.memberNickname = memberNickname;
-        this.goalcategoryCode = goalcategoryCode;
-        this.state = state;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+        this.goalcategoryName = goalcategoryName;
+    }
+    public static Member of(GoogleUser googleUser, MemberRequest memberRequest) {
+        Member member = new Member();
+        member.setMemberSocialid(googleUser.getEmail());
+        member.setMemberName(googleUser.getName());
+        member.setMemberNickname(memberRequest.getMemberNickname());
+        member.setGoalcategoryName(memberRequest.getGoalcategoryName());
+        member.setState(MemberState.ACTIVE);
+        // createdAt 및 modifiedAt 설정 등 필요한 로직 추가
+        return member;
     }
 }

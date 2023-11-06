@@ -23,12 +23,12 @@ import static com.example.structure.member.domain.MemberState.ACTIVE;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/body/log")
+@RequestMapping("/body")
 public class BodyController {
     private final BodyService bodyService;
     /*로그인 한 유저의 체성분 모두 조회*/
-    @GetMapping("/{memberCode}")
-    public ResponseEntity<List<BodyResponse>> getBody(@PathVariable Integer memberCode){
+    @GetMapping("/log")
+    public ResponseEntity<List<BodyResponse>> getBody(Integer memberCode){
 
 
         final List<BodyResponse> bodyResponses = bodyService.getAllBodys(memberCode);
