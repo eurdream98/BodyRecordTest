@@ -1,6 +1,6 @@
 package A1B1O3.bodyrecord.exercise.dto.request;
 
-import A1B1O3.bodyrecord.member.Member;
+import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
