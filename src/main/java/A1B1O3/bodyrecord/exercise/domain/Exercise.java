@@ -2,7 +2,7 @@ package A1B1O3.bodyrecord.exercise.domain;
 
 import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
-import A1B1O3.bodyrecord.member.Member;
+import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
-import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
+import static A1B1O3.bodyrecord.common.type.USABLE;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;

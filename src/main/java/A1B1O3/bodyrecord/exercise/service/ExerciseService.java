@@ -1,5 +1,5 @@
 package A1B1O3.bodyrecord.exercise.service;
-import A1B1O3.bodyrecord.exception.AuthException;
+import A1B1O3.bodyrecord.exercise.exception.AuthException;
 import A1B1O3.bodyrecord.exception.BadRequestException;
 import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import A1B1O3.bodyrecord.exercise.domain.repository.ExerciseRepository;
@@ -10,8 +10,9 @@ import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 
 //import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
-import A1B1O3.bodyrecord.member.Member;
-import A1B1O3.bodyrecord.member.repository.MemberRepository;
+//import A1B1O3.bodyrecord.member.Member;
+//import A1B1O3.bodyrecord.member.repository.MemberRepository;
+import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.INVALID_EXERCISE_LOG_WITH_MEMBER;
+import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.NOT_FOUND_MEMBER_ID;
 import static A1B1O3.bodyrecord.exception.type.ExceptionCode.*;
 
 @Service
