@@ -39,9 +39,6 @@ public class Member {
     @Column(nullable = false)
     private String memberNickname;
 
-    @Column(nullable = false)
-    private String goalcategoryName;
-
 
     @Enumerated(EnumType.STRING)
     private MemberState state;
@@ -54,19 +51,17 @@ public class Member {
     private LocalDateTime modifiedAt;
 
 
-    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname, String goalcategoryName) {
+    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname) {
         this.memberCode = memberCode;
         this.memberSocialid = memberSocialid;
         this.memberName = memberName;
         this.memberNickname = memberNickname;
-        this.goalcategoryName = goalcategoryName;
     }
     public static Member of(GoogleUser googleUser, MemberRequest memberRequest) {
         Member member = new Member();
         member.setMemberSocialid(googleUser.getEmail());
         member.setMemberName(googleUser.getName());
         member.setMemberNickname(memberRequest.getMemberNickname());
-        member.setGoalcategoryName(memberRequest.getGoalcategoryName());
         member.setState(MemberState.ACTIVE);
         // createdAt 및 modifiedAt 설정 등 필요한 로직 추가
         return member;

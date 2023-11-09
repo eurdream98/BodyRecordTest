@@ -30,20 +30,7 @@ import java.util.List;
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    /*운동기록 캘린더 조회*/
-    @GetMapping("/calender")
-    public ResponseEntity<List<ExerciseCalenderResponse>> getExerciseCalender(){
-        final List<ExerciseCalenderResponse> exerciseCalenderResponse = exerciseService.getExerciseCalender(2);
-        return ResponseEntity.ok(exerciseCalenderResponse);
-    }
-
-
-//    /*나의 운동기록 전체 조회*/
-//    @GetMapping
-//    public ResponseEntity<List<ExerciseResponse>> getExercises(){
-//        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(1);
-//        return ResponseEntity.ok(exerciseResponse);
-//    }
+    
 
     /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
