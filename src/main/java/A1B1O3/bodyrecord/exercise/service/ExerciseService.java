@@ -1,4 +1,6 @@
 package A1B1O3.bodyrecord.exercise.service;
+import A1B1O3.bodyrecord.body.domain.Body;
+import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
 import A1B1O3.bodyrecord.common.exception.AuthException;
 import A1B1O3.bodyrecord.common.exception.BadRequestException;
 import A1B1O3.bodyrecord.exercise.domain.Exercise;
@@ -17,6 +19,7 @@ import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +35,7 @@ import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.*;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final MemberRepository memberRepository;
+    private final BodyRepository bodyRepository;
 
 
     @Transactional(readOnly = true)
@@ -83,19 +87,20 @@ public class ExerciseService {
         exerciseRepository.delete(exercise);
     }
 
-
     @Transactional(readOnly = true)
-    public Slice<SearchResponse> searchBody(final boolean exerciseShare,
-                                            final float weight,
-                                            final float fat,
-                                            final float muscle,
-                                            Pageable pageable) {
-        final  Slice<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareAndMemberBodyWeightAndMemberBodyFatAndMemberBodyMuscle(exerciseShare,weight,fat,muscle,pageable);
+    public Slice<SearchResponse> searchBody(Pageable pageable, float minWeight, float maxWeight){
+        List<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareIsTrue();
+        if(minWeight > 0 && maxWeight > 0){
+            List<Body> body = bodyRepository.findByWeightBetween(minWeight, maxWeight);
 
+            searchBodyExercise = searchBodyExercise.stream().filter(e -> body.stream().anyMatch
+                    (b -> e.getMember().equals(b.getMemberCode()))).collect(Collectors.toList());
+        }
+        return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
-        return searchBodyExercise
-                .map(exercise -> SearchResponse.from(exercise));
 
     }
+
+
 
 }

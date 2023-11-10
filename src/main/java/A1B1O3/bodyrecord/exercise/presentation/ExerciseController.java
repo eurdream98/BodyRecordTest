@@ -30,7 +30,7 @@ import java.util.List;
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    
+
 
     /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
@@ -67,12 +67,11 @@ public class ExerciseController {
 
 
     /*운동기록 체성분별 검색*/
-    @GetMapping("/search/body/{weight}/{fat}/{muscle}")
-    public ResponseEntity<Slice<SearchResponse>> searchBodyExercise(@PathVariable final float weight,
-                                                                    @PathVariable final float fat,
-                                                                    @PathVariable final float muscle,
-                                                                    @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchBody(true, weight, fat, muscle, pageable);
+    @GetMapping("/search/body/{minWeight}/{maxWeight}")
+    public ResponseEntity<Slice<SearchResponse>> searchBody(@PageableDefault(size = 10) Pageable pageable,
+                                                            @PathVariable float minWeight,
+                                                            @PathVariable float maxWeight){
+        final Slice<SearchResponse> searchResponse = exerciseService.searchBody(pageable, minWeight, maxWeight);
         return ResponseEntity.ok(searchResponse);
     }
 
