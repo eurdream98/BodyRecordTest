@@ -1,8 +1,8 @@
 package A1B1O3.bodyrecord.body.domain;
 
 import A1B1O3.bodyrecord.body.dto.request.BodyUpdateRequest;
-import com.example.structure.common.BaseEntity;
-import com.example.structure.member.domain.Member;
+import A1B1O3.bodyrecord.common.BaseEntity;
+import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-import static com.example.structure.common.type.StatusType.USABLE;
+
+import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;

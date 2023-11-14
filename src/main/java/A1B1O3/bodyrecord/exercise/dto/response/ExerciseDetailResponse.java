@@ -25,7 +25,6 @@ public class ExerciseDetailResponse {
 
     private final Boolean exerciseShare;
 
-    private final Date exerciseDate;
     @JsonFormat(pattern = "YYYY-MM-DD")
     private final LocalDateTime createdAt;
 
@@ -40,7 +39,6 @@ public class ExerciseDetailResponse {
                 exercise.getExerciseTime(),
                 exercise.getExerciseImage(),
                 exercise.getExerciseShare(),
-                exercise.getExerciseDate(),
                 exercise.getCreatedAt(),
                 exercise.getModifiedAt()
         );

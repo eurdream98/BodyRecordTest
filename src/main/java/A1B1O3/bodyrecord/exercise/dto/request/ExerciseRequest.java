@@ -25,11 +25,7 @@ public class ExerciseRequest {
 
     private final Boolean exerciseShare;
 
-    private final Date exerciseDate;
 
-    private final String memberNickname;
-
-    private final int goalCategoryCode;
 }
 
 

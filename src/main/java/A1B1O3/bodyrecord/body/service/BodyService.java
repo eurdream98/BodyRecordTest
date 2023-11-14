@@ -4,9 +4,10 @@ import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
-import com.example.structure.member.domain.Member;
-import com.example.structure.member.domain.MemberState;
-import com.example.structure.member.domain.repository.MemberRepository;
+
+import A1B1O3.bodyrecord.member.domain.Member;
+import A1B1O3.bodyrecord.member.domain.MemberState;
+import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,6 @@ public class BodyService {
         member.setMemberSocialid(member.getMemberSocialid());
 //        member.setState(MemberState.ACTIVE);
         member.setState(MemberState.ACTIVE);
-        member.setGoalcategoryName(member.getGoalcategoryName());
         member = memberRepository.save(member);
         Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getFat(),bodyRequest.getMuscle(),member);
         return bodyRepository.save(body);
