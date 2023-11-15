@@ -22,6 +22,7 @@ public class SearchResponse {
 
     private final String memberNickName;
 
+//    private final float weight;
 
     public static SearchResponse from(final Exercise exercise){
         return new SearchResponse(
@@ -31,6 +32,7 @@ public class SearchResponse {
                 exercise.getExerciseTime(),
                 exercise.getExerciseShare(),
                 exercise.getMember().getMemberNickname()
+//                exercise.getMember().getBody().getWeight()
         );
     }
 

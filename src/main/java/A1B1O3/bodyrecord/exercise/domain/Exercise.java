@@ -13,8 +13,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
-
-import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
+import static A1B1O3.bodyrecord.common.type.USABLE;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -23,7 +22,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @SQLDelete(sql = "UPDATE exercise SET state = 'DELETED' WHERE exercise_code = ?")
-@Where(clause = "state = 'USABLE'")
+@Where(clause = "state = 'USEABLE'")
 public class Exercise extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -46,6 +45,8 @@ public class Exercise extends BaseEntity {
     private String exerciseImage;
     @Column(name = "exercise_share")
     private Boolean exerciseShare;
+    @Column(name = "exercise_date")
+    private Date exerciseDate;
 
     public Exercise(
             final int exerciseCode,
@@ -55,9 +56,10 @@ public class Exercise extends BaseEntity {
             final int exerciseCount,
             final Time exerciseTime,
             final String exerciseImage,
-            final Boolean exerciseShare
+            final Boolean exerciseShare,
+            final Date exerciseDate
     ) {
-        super(USABLE);
+        super(USEABLE);
         this.exerciseCode = exerciseCode;
         this.member = member;
         this.exerciseName = exerciseName;
@@ -66,10 +68,11 @@ public class Exercise extends BaseEntity {
         this.exerciseTime = exerciseTime;
         this.exerciseImage = exerciseImage;
         this.exerciseShare = exerciseShare;
+        this.exerciseDate = exerciseDate;
     }
 
 
-    public static Exercise of(final Member member, final String exerciseName, final int exerciseCount, float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImage) {
+    public static Exercise of(final Member member, final String exerciseName, final Date exerciseDate, final int exerciseCount, float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImage) {
         return new Exercise(
                 0,
                 member,
@@ -78,7 +81,8 @@ public class Exercise extends BaseEntity {
                 exerciseCount,
                 exerciseTime,
                 exerciseImage,
-                exerciseShare
+                exerciseShare,
+                exerciseDate
         );
     }
 
@@ -89,5 +93,6 @@ public class Exercise extends BaseEntity {
         this.exerciseTime = exerciseUpdateRequest.getExerciseTime();
         this.exerciseImage = exerciseUpdateRequest.getExerciseImage();
         this.exerciseShare = exerciseUpdateRequest.getExerciseShare();
+        this.exerciseDate = exerciseUpdateRequest.getExerciseDate();
     }
 }
