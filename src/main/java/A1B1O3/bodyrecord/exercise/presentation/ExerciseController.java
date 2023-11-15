@@ -8,10 +8,7 @@ import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,16 +26,11 @@ import java.util.List;
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    /*나의 운동기록 전체 조회*/
-    @GetMapping
-    public ResponseEntity<List<ExerciseResponse>> getExercises(){
-        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(1);
-        return ResponseEntity.ok(exerciseResponse);
-    }
+
 
     /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
-    public ResponseEntity<ExerciseDetailResponse> getExercises(@PathVariable final int exerciseCode)
+    public ResponseEntity<ExerciseDetailResponse> getExercise(@PathVariable final int exerciseCode)
     {
         exerciseService.validateExerciseByMember(/* 접근자.getMemberCode() */ 1, exerciseCode);
        final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(1);
@@ -60,6 +52,7 @@ public class ExerciseController {
         exerciseService.update(exerciseCode, exerciseUpdateRequest);
         return ResponseEntity.noContent().build();
     }
+
     /*운동기록 삭제*/
     @DeleteMapping("/{exerciseCode}")
     public ResponseEntity<Void> deleteExercise(/*접근자*/ @PathVariable final int exerciseCode){
@@ -68,38 +61,19 @@ public class ExerciseController {
         return ResponseEntity.noContent().build();
     }
 
-    /*운동기록 카테고리별 검색*/
-    @GetMapping("/search/category/{goalCategoryCode}")
-    public ResponseEntity<Slice<SearchResponse>> searchCategoryExercise(@PathVariable final int goalCategoryCode,
-                                                                        @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchCategory(true, goalCategoryCode, pageable);
-        return ResponseEntity.ok(searchResponse);
-
-    }
 
     /*운동기록 체성분별 검색*/
-    @GetMapping("/search/body/{weight}/{fat}/{muscle}")
-    public ResponseEntity<Slice<SearchResponse>> searchBodyExercise(@PathVariable final float weight,
-                                                                    @PathVariable final float fat,
-                                                                    @PathVariable final float muscle,
-                                                                    @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchBody(true, weight, fat, muscle, pageable);
+    @GetMapping("/search/body")
+    public ResponseEntity<Slice<SearchResponse>> searchBody(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minWeight,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxWeight,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minFat,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxFat,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minMuscle,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxMuscle){
+        final Slice<SearchResponse> searchResponse = exerciseService.searchBody(pageable, minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
         return ResponseEntity.ok(searchResponse);
     }
-
-    /*운동기록 카테고리&체성분 통합 검색*/
-    @GetMapping("/search/{goalCategoryCode}/{weight}/{fat}/{muscle}")
-    public ResponseEntity<Slice<SearchResponse>> searchTotalExercise(@PathVariable final int goalCategoryCode,
-                                                                     @PathVariable final float weight,
-                                                                     @PathVariable final float fat,
-                                                                     @PathVariable final float muscle,
-                                                                     @PageableDefault(size = 10) Pageable pageable){
-        final Slice<SearchResponse> searchResponse = exerciseService.searchTotal(true, goalCategoryCode, weight, fat, muscle, pageable);
-        return ResponseEntity.ok(searchResponse);
-
-    }
-
-
 
 
 }

@@ -1,33 +1,30 @@
 package A1B1O3.bodyrecord.exercise.service;
-import A1B1O3.bodyrecord.exercise.exception.AuthException;
-import A1B1O3.bodyrecord.exception.BadRequestException;
+import A1B1O3.bodyrecord.body.domain.Body;
+import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
+import A1B1O3.bodyrecord.common.exception.AuthException;
+import A1B1O3.bodyrecord.common.exception.BadRequestException;
 import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import A1B1O3.bodyrecord.exercise.domain.repository.ExerciseRepository;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
-import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 
-//import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
+
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
-//import A1B1O3.bodyrecord.member.Member;
-//import A1B1O3.bodyrecord.member.repository.MemberRepository;
 import A1B1O3.bodyrecord.member.domain.Member;
+import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.INVALID_EXERCISE_LOG_WITH_MEMBER;
-import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.NOT_FOUND_MEMBER_ID;
-import static A1B1O3.bodyrecord.exception.type.ExceptionCode.*;
+import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.*;
+
 
 @Service
 @RequiredArgsConstructor
@@ -35,22 +32,14 @@ import static A1B1O3.bodyrecord.exception.type.ExceptionCode.*;
 public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final MemberRepository memberRepository;
+    private final BodyRepository bodyRepository;
 
-    @Transactional(readOnly = true)
-    public List<ExerciseResponse> getAllExercise(final int memberCode) {
-
-        final List<Exercise> exercises = exerciseRepository.findAllByMemberMemberCode(memberCode);
-
-        return exercises.stream()
-                .map(exercise -> ExerciseResponse.from(exercise))
-                .collect(Collectors.toList());
-    }
 
     @Transactional(readOnly = true)
     public ExerciseDetailResponse getExerciseDetail(final int exerciseCode) {
 
         final Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
-                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_CODE));
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
         return ExerciseDetailResponse.from(exercise);
     }
 
@@ -75,6 +64,8 @@ public class ExerciseService {
                 exerciseRequest.getExerciseShare(),
                 exerciseRequest.getExerciseImage()
 
+
+
         );
 
         final Exercise exercise = exerciseRepository.save(newExercise);
@@ -84,7 +75,7 @@ public class ExerciseService {
 
     public void update(int exerciseCode, ExerciseUpdateRequest exerciseUpdateRequest) {
         final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
-                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_CODE));
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
 
         exercise.update(exerciseUpdateRequest);
         exerciseRepository.save(exercise);
@@ -92,43 +83,24 @@ public class ExerciseService {
 
     public void delete(final int exerciseCode) {
         final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
-                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_CODE));
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
         exerciseRepository.delete(exercise);
     }
 
     @Transactional(readOnly = true)
-    public Slice<SearchResponse> searchCategory(final boolean exerciseShare, final int goalCategoryCode, Pageable pageable) {
-        final Slice<Exercise> searchCategoryExercise = exerciseRepository.findByExerciseShareAndMemberGoalCategoryGoalCategoryCode(exerciseShare,goalCategoryCode,pageable);
+    public Slice<SearchResponse> searchBody(Pageable pageable, float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle){
+        List<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareIsTrue();
+        if (minWeight > 0.0 && maxWeight > 0.0 && minFat > 0.0 && maxFat > 0.0 && minMuscle > 0.0 && maxMuscle > 0.0){
+            List<Body> body = bodyRepository.findByWeightBetweenAndFatBetweenAndMuscleBetween(minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
+            List<Exercise> exercise = exerciseRepository.findByExerciseShareIsTrue();
 
-        return searchCategoryExercise
-                .map(exercise -> SearchResponse.from(exercise));
-    }
+            searchBodyExercise = exercise.stream().filter(e -> body.stream().anyMatch
+                    (b -> e.getMember().equals(b.getMember()))).collect(Collectors.toList());
+        }
+        return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
-    @Transactional(readOnly = true)
-    public Slice<SearchResponse> searchBody(final boolean exerciseShare,
-                                            final float weight,
-                                            final float fat,
-                                            final float muscle,
-                                            Pageable pageable) {
-        final  Slice<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareAndMemberBodyWeightAndMemberBodyFatAndMemberBodyMuscle(exerciseShare,weight,fat,muscle,pageable);
-
-        return searchBodyExercise
-                .map(exercise -> SearchResponse.from(exercise));
 
     }
 
 
-
-    @Transactional(readOnly = true)
-    public Slice<SearchResponse> searchTotal(final boolean exerciseShare,
-                                             final int goalCategoryCode,
-                                             final float weight,
-                                             final float fat,
-                                             final float muscle,
-                                             Pageable pageable) {
-        final Slice<Exercise> searchTotalExercise = exerciseRepository.findByExerciseShareAndMemberGoalCategoryGoalCategoryCodeAndMemberBodyWeightAndMemberBodyFatAndMemberBodyMuscle(exerciseShare, goalCategoryCode, weight, fat, muscle, pageable);
-
-        return searchTotalExercise
-                .map(exercise -> SearchResponse.from(exercise));
-    }
 }

@@ -8,13 +8,11 @@ import java.util.List;
 
 public interface BodyRepository extends JpaRepository<Body,Long> {
 
-
-
     List<Body> findAllByMemberCodeMemberCode(final Integer memberCode);
     Body save(BodyRequest bodyRequest);
     boolean existsByMemberCodeAndBodyCode(final Integer memberCode, final Integer bodyCode);
 
-
     public void deleteByMemberCodeMemberCode(final Integer memberCode);
 
+    List<Body> findByWeightBetweenAndFatBetweenAndMuscleBetween(float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle);
 }
