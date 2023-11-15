@@ -14,6 +14,5 @@ public interface BodyRepository extends JpaRepository<Body,Long> {
 
     public void deleteByMemberCodeMemberCode(final Integer memberCode);
 
-    List<Body> findByWeightBetween(float minWeight, float maxWeight);
-
+    List<Body> findByWeightBetweenAndFatBetweenAndMuscleBetween(float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle);
 }
