@@ -23,5 +23,6 @@ public class ExerciseUpdateRequest {
 
     private final Boolean exerciseShare;
 
+    private final Date exerciseDate;
 
 }

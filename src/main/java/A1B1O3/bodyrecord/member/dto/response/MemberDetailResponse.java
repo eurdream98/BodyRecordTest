@@ -17,6 +17,7 @@ public class MemberDetailResponse {
     private final String memberSocialid;
     private final String memberName;
     private final String memberNickname;
+    private final String goalcategoryName;
     private final MemberState status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdAt;
@@ -29,6 +30,7 @@ public class MemberDetailResponse {
                 member.getMemberSocialid(),
                 member.getMemberName(),
                 member.getMemberNickname(),
+                member.getGoalcategoryName(),
                 member.getState(),
                 member.getCreatedAt(),
                 member.getModifiedAt()
