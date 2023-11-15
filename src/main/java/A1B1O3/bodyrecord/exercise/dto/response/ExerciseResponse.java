@@ -25,6 +25,7 @@ public class ExerciseResponse {
 
     private final Boolean exerciseShare;
 
+    private final Date exerciseDate;
 
     public static ExerciseResponse from(final Exercise exercise) {
         return new ExerciseResponse(
@@ -33,7 +34,8 @@ public class ExerciseResponse {
                 exercise.getExerciseCount(),
                 exercise.getExerciseTime(),
                 exercise.getExerciseImage(),
-                exercise.getExerciseShare()
+                exercise.getExerciseShare(),
+                exercise.getExerciseDate()
         );
     }
 }
