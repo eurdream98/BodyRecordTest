@@ -2,7 +2,6 @@ package A1B1O3.bodyrecord.exercise.presentation;
 
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
-import A1B1O3.bodyrecord.exercise.dto.response.ExerciseCalenderResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 //import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
@@ -66,12 +65,12 @@ public class ExerciseController {
     /*운동기록 체성분별 검색*/
     @GetMapping("/search/body")
     public ResponseEntity<Slice<SearchResponse>> searchBody(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
-                                                            @RequestParam(required = false, defaultValue = "0") float minWeight,
-                                                            @RequestParam(required = false, defaultValue = "0") float maxWeight,
-                                                            @RequestParam(required = false, defaultValue = "0") float minFat,
-                                                            @RequestParam(required = false, defaultValue = "0") float maxFat,
-                                                            @RequestParam(required = false, defaultValue = "0") float minMuscle,
-                                                            @RequestParam(required = false, defaultValue = "0") float maxMuscle){
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minWeight,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxWeight,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minFat,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxFat,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float minMuscle,
+                                                            @RequestParam(required = false, defaultValue = "0.0") float maxMuscle){
         final Slice<SearchResponse> searchResponse = exerciseService.searchBody(pageable, minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
         return ResponseEntity.ok(searchResponse);
     }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
-import static A1B1O3.bodyrecord.common.type.USABLE;
+import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -22,7 +22,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @SQLDelete(sql = "UPDATE exercise SET state = 'DELETED' WHERE exercise_code = ?")
-@Where(clause = "state = 'USEABLE'")
+@Where(clause = "state = 'USABLE'")
 public class Exercise extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -59,7 +59,7 @@ public class Exercise extends BaseEntity {
             final Boolean exerciseShare,
             final Date exerciseDate
     ) {
-        super(USEABLE);
+        super(USABLE);
         this.exerciseCode = exerciseCode;
         this.member = member;
         this.exerciseName = exerciseName;

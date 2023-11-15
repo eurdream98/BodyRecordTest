@@ -29,7 +29,6 @@ public class ExerciseRequest {
 
     private final String memberNickname;
 
-    private final int goalCategoryCode;
 }
 
 

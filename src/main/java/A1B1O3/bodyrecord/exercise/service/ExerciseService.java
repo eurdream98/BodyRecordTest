@@ -7,13 +7,10 @@ import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import A1B1O3.bodyrecord.exercise.domain.repository.ExerciseRepository;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
-import A1B1O3.bodyrecord.exercise.dto.response.ExerciseCalenderResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 
-//import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
+
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
-//import A1B1O3.bodyrecord.member.Member;
-//import A1B1O3.bodyrecord.member.repository.MemberRepository;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,11 +57,14 @@ public class ExerciseService {
         final Exercise newExercise = Exercise.of(
                 member,
                 exerciseRequest.getExerciseName(),
+                exerciseRequest.getExerciseDate(),
                 exerciseRequest.getExerciseCount(),
                 exerciseRequest.getExerciseWeight(),
                 exerciseRequest.getExerciseTime(),
                 exerciseRequest.getExerciseShare(),
                 exerciseRequest.getExerciseImage()
+
+
 
         );
 
@@ -90,12 +90,12 @@ public class ExerciseService {
     @Transactional(readOnly = true)
     public Slice<SearchResponse> searchBody(Pageable pageable, float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle){
         List<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareIsTrue();
-        if (minWeight > 0 && maxWeight > 0 && minFat > 0 && maxFat > 0 && minMuscle > 0 && maxMuscle > 0){
+        if (minWeight > 0.0 && maxWeight > 0.0 && minFat > 0.0 && maxFat > 0.0 && minMuscle > 0.0 && maxMuscle > 0.0){
             List<Body> body = bodyRepository.findByWeightBetweenAndFatBetweenAndMuscleBetween(minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
             List<Exercise> exercise = exerciseRepository.findByExerciseShareIsTrue();
 
             searchBodyExercise = exercise.stream().filter(e -> body.stream().anyMatch
-                    (b -> e.getMember().equals(b.getMemberCode()))).collect(Collectors.toList());
+                    (b -> e.getMember().equals(b.getMember()))).collect(Collectors.toList());
         }
         return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
