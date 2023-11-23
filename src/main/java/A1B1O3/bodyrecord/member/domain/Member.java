@@ -26,7 +26,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Integer memberCode;
+    private int memberCode;
 
     //jwt
     @Column(nullable = false, length = 30)
@@ -54,7 +54,7 @@ public class Member {
     private LocalDateTime modifiedAt;
 
 
-    public Member(Integer memberCode, String memberSocialid, String memberName, String memberNickname, String goalcategoryName) {
+    public Member(int memberCode, String memberSocialid, String memberName, String memberNickname, String goalcategoryName) {
         this.memberCode = memberCode;
         this.memberSocialid = memberSocialid;
         this.memberName = memberName;

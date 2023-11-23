@@ -21,11 +21,14 @@ public class ExerciseResponse {
 
     private final Time exerciseTime;
 
-    private final String exerciseImage;
+    private final String exerciseImageName;
+
+    private final String exerciseImagePath;
 
     private final Boolean exerciseShare;
 
     private final Date exerciseDate;
+
 
     public static ExerciseResponse from(final Exercise exercise) {
         return new ExerciseResponse(
@@ -33,7 +36,8 @@ public class ExerciseResponse {
                 exercise.getExerciseWeight(),
                 exercise.getExerciseCount(),
                 exercise.getExerciseTime(),
-                exercise.getExerciseImage(),
+                exercise.getExerciseImageName(),
+                exercise.getExerciseImagePath(),
                 exercise.getExerciseShare(),
                 exercise.getExerciseDate()
         );

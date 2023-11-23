@@ -3,8 +3,10 @@ package A1B1O3.bodyrecord.exercise.domain;
 import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.member.domain.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -20,6 +22,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = PROTECTED)
 @SQLDelete(sql = "UPDATE exercise SET state = 'DELETED' WHERE exercise_code = ?")
 @Where(clause = "state = 'USABLE'")
@@ -40,12 +43,16 @@ public class Exercise extends BaseEntity {
     @Column(name = "exercise_count")
     private int exerciseCount;
     @Column(name = "exercise_time")
+    @JsonFormat(pattern = "hh:mm:ss")
     private Time exerciseTime;
-    @Column(name = "exercise_image")
-    private String exerciseImage;
+    @Column(name = "exercise_image_path")
+    private String exerciseImagePath;
+    @Column(name = "exercise_image_name")
+    private String exerciseImageName;
     @Column(name = "exercise_share")
     private Boolean exerciseShare;
     @Column(name = "exercise_date")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date exerciseDate;
 
     public Exercise(
@@ -55,7 +62,8 @@ public class Exercise extends BaseEntity {
             final float exerciseWeight,
             final int exerciseCount,
             final Time exerciseTime,
-            final String exerciseImage,
+            final String exerciseImagePath,
+            final String exerciseImageName,
             final Boolean exerciseShare,
             final Date exerciseDate
     ) {
@@ -66,13 +74,14 @@ public class Exercise extends BaseEntity {
         this.exerciseWeight = exerciseWeight;
         this.exerciseCount = exerciseCount;
         this.exerciseTime = exerciseTime;
-        this.exerciseImage = exerciseImage;
+        this.exerciseImagePath = exerciseImagePath;
+        this.exerciseImageName = exerciseImageName;
         this.exerciseShare = exerciseShare;
         this.exerciseDate = exerciseDate;
     }
 
 
-    public static Exercise of(final Member member, final String exerciseName, final Date exerciseDate, final int exerciseCount, float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImage) {
+    public static Exercise of(final Member member, final String exerciseName, final int exerciseCount, final float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImagePath, final String exerciseImageName, final Date exerciseDate) {
         return new Exercise(
                 0,
                 member,
@@ -80,7 +89,8 @@ public class Exercise extends BaseEntity {
                 exerciseWeight,
                 exerciseCount,
                 exerciseTime,
-                exerciseImage,
+                exerciseImagePath,
+                exerciseImageName,
                 exerciseShare,
                 exerciseDate
         );
@@ -91,7 +101,8 @@ public class Exercise extends BaseEntity {
         this.exerciseWeight = exerciseUpdateRequest.getExerciseWeight();
         this.exerciseCount = exerciseUpdateRequest.getExerciseCount();
         this.exerciseTime = exerciseUpdateRequest.getExerciseTime();
-        this.exerciseImage = exerciseUpdateRequest.getExerciseImage();
+        this.exerciseImagePath = exerciseUpdateRequest.getExerciseImagePath();
+        this.exerciseImageName = exerciseUpdateRequest.getExerciseImageName();
         this.exerciseShare = exerciseUpdateRequest.getExerciseShare();
         this.exerciseDate = exerciseUpdateRequest.getExerciseDate();
     }
