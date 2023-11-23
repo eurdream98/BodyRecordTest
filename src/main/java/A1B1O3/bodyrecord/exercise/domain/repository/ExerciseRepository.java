@@ -18,12 +18,5 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
 
     boolean existsByMemberMemberCodeAndExerciseCode(final int memberCode, final int exerciseCode);
 
-    Slice<Exercise> findByExerciseShareAndMemberGoalCategoryGoalCategoryCode(final boolean exerciseShare, final int goalCategoryCode, Pageable pageable);
-
-    Slice<Exercise> findByExerciseShareAndMemberBodyWeightAndMemberBodyFatAndMemberBodyMuscle(final boolean exerciseShare, final float weight, final float fat, final float muscle, Pageable pageable);
-
-
-    Slice<Exercise> findByExerciseShareAndMemberGoalCategoryGoalCategoryCodeAndMemberBodyWeightAndMemberBodyFatAndMemberBodyMuscle(final boolean exerciseShare, final int goalCategoryCode, final float weight, final float fat, final float muscle, Pageable pageable);
-
     List<Exercise> findByExerciseShareIsTrue();
 }

@@ -1,8 +1,8 @@
 package com.example.structure;
 
-import com.example.structure.body.dto.response.BodyResponse;
-import com.example.structure.body.presentation.BodyController;
-import com.example.structure.body.service.BodyService;
+
+import A1B1O3.bodyrecord.body.presentation.BodyController;
+import A1B1O3.bodyrecord.body.service.BodyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

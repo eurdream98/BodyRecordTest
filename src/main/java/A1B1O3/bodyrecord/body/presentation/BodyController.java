@@ -18,7 +18,7 @@ public class BodyController {
     private final BodyService bodyService;
     /*로그인 한 유저의 체성분 모두 조회*/
     @GetMapping("/log")
-    public ResponseEntity<List<BodyResponse>> getBody(Integer memberCode){
+    public ResponseEntity<List<BodyResponse>> getBody(int memberCode){
 
 
         final List<BodyResponse> bodyResponses = bodyService.getAllBodys(memberCode);
@@ -26,7 +26,7 @@ public class BodyController {
     }
 
     @GetMapping("/{memberCode}/latest")
-    public List<BodyResponse> getBodyDetail(@PathVariable Integer memberCode) {
+    public List<BodyResponse> getBodyDetail(@PathVariable int memberCode) {
         final List<BodyResponse> bodyResponses = bodyService.getAllBodys(memberCode);
 
         if (bodyResponses.isEmpty()) {
@@ -40,11 +40,11 @@ public class BodyController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Body> insert(@RequestBody BodyRequest bodyRequest) {
-        Body body = bodyService.insert(bodyRequest);
-        return new ResponseEntity<>(body, HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<Body> insert(@RequestBody BodyRequest bodyRequest) {
+//        Body body = bodyService.insert(bodyRequest);
+//        return new ResponseEntity<>(body, HttpStatus.CREATED);
+//    }
 
     @DeleteMapping("/{memberCode}")
     public void deleteByMemberCode(@PathVariable Integer memberCode){

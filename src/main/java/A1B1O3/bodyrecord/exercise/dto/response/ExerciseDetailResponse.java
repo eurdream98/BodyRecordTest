@@ -21,11 +21,14 @@ public class ExerciseDetailResponse {
 
     private final Time exerciseTime;
 
-    private final String exerciseImage;
+    private final String exerciseImageName;
+
+    private final String exerciseImagePath;
 
     private final Boolean exerciseShare;
 
     private final Date exerciseDate;
+
     @JsonFormat(pattern = "YYYY-MM-DD")
     private final LocalDateTime createdAt;
 
@@ -38,7 +41,8 @@ public class ExerciseDetailResponse {
                 exercise.getExerciseWeight(),
                 exercise.getExerciseCount(),
                 exercise.getExerciseTime(),
-                exercise.getExerciseImage(),
+                exercise.getExerciseImageName(),
+                exercise.getExerciseImagePath(),
                 exercise.getExerciseShare(),
                 exercise.getExerciseDate(),
                 exercise.getCreatedAt(),

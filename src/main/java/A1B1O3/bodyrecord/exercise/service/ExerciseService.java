@@ -10,6 +10,7 @@ import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 
 
+import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
@@ -20,7 +21,10 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.*;
@@ -34,6 +38,15 @@ public class ExerciseService {
     private final MemberRepository memberRepository;
     private final BodyRepository bodyRepository;
 
+    @Transactional(readOnly = true)
+    public List<ExerciseResponse> getAllExercise(final int memberCode) {
+
+        final List<Exercise> exercises = exerciseRepository.findAllByMemberMemberCode(memberCode);
+
+        return exercises.stream()
+                .map(exercise -> ExerciseResponse.from(exercise))
+                .collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public ExerciseDetailResponse getExerciseDetail(final int exerciseCode) {
@@ -50,34 +63,49 @@ public class ExerciseService {
         }
     }
 
-    public int save(final int memberCode, ExerciseRequest exerciseRequest) {
+    public int save(final int memberCode, ExerciseRequest exerciseRequest) throws IOException {
         final Member member = memberRepository.findByMemberCode(memberCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_MEMBER_ID));
 
         final Exercise newExercise = Exercise.of(
                 member,
                 exerciseRequest.getExerciseName(),
-                exerciseRequest.getExerciseDate(),
                 exerciseRequest.getExerciseCount(),
                 exerciseRequest.getExerciseWeight(),
                 exerciseRequest.getExerciseTime(),
                 exerciseRequest.getExerciseShare(),
-                exerciseRequest.getExerciseImage()
-
-
-
+                exerciseRequest.getExerciseImagePath(),
+                exerciseRequest.getExerciseImageName(),
+                exerciseRequest.getExerciseDate()
         );
+
+        String uploadPath = "D:\\files";
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + exerciseRequest.getImgFile();
+        File saveFile = new File(uploadPath, fileName);
+        exerciseRequest.getImgFile().transferTo(saveFile);
+        newExercise.setExerciseImageName(fileName);
+        newExercise.setExerciseImagePath(uploadPath + "/" + fileName);
 
         final Exercise exercise = exerciseRepository.save(newExercise);
 
         return exercise.getExerciseCode();
     }
 
-    public void update(int exerciseCode, ExerciseUpdateRequest exerciseUpdateRequest) {
+    public void update(int exerciseCode, ExerciseUpdateRequest exerciseUpdateRequest) throws IOException {
         final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
 
         exercise.update(exerciseUpdateRequest);
+
+        String uploadPath = "D:\\files";
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + exerciseUpdateRequest.getImgFile();
+        File saveFile = new File(uploadPath, fileName);
+        exerciseUpdateRequest.getImgFile().transferTo(saveFile);
+        exercise.setExerciseImageName(fileName);
+        exercise.setExerciseImagePath(uploadPath + "/" + fileName);
+
         exerciseRepository.save(exercise);
     }
 

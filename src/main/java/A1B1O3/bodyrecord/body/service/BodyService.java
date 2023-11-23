@@ -22,8 +22,8 @@ public class BodyService {
     private final BodyRepository bodyRepository;
     private final MemberRepository memberRepository;
     @Transactional(readOnly = true)
-   public List<BodyResponse> getAllBodys(final Integer memberCode){
-        final List<Body> bodys = bodyRepository.findAllByMemberCodeMemberCode(memberCode);
+   public List<BodyResponse> getAllBodys(final int memberCode){
+        final List<Body> bodys = bodyRepository.findAllByMemberMemberCode(memberCode);
         return bodys.stream()
                 .map(body -> BodyResponse.from(body))
                 .collect(Collectors.toList());
@@ -43,8 +43,8 @@ public class BodyService {
         return bodyRepository.save(body);
     }
 
-    public void deleteByMemberCode(final Integer memberCode){
-        bodyRepository.deleteByMemberCodeMemberCode(memberCode);
+    public void deleteByMemberCode(final int memberCode){
+        bodyRepository.deleteByMemberMemberCode(memberCode);
     }
 
 

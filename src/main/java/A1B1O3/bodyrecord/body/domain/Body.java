@@ -30,7 +30,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Body extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Integer bodyCode;
+    private int bodyCode;
 
     @Column(nullable = false, name = "weight")
     private float weight;
@@ -46,7 +46,7 @@ public class Body extends BaseEntity {
     private Member member;
 
 
-    public Body(Integer bodyCode, float weight, float fat, float muscle, Member member) {
+    public Body(int bodyCode, float weight, float fat, float muscle, Member member) {
         super(USABLE);
         this.bodyCode = bodyCode;
         this.weight = weight;
