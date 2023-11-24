@@ -1,9 +1,7 @@
 package A1B1O3.bodyrecord.member.service;
 
 import A1B1O3.bodyrecord.member.domain.Member;
-import A1B1O3.bodyrecord.member.domain.login.model.GoogleUser;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
-import A1B1O3.bodyrecord.member.dto.request.MemberRequest;
 import A1B1O3.bodyrecord.member.dto.response.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +15,11 @@ import java.util.stream.Collectors;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
-    @Transactional
-    public Member insert(GoogleUser googleUser, MemberRequest memberRequest) {
-        Member member = Member.of(googleUser, memberRequest);
-        return memberRepository.save(member);
-    }
+//    @Transactional
+//    public Member insert(GoogleUser googleUser, MemberRequest memberRequest) {
+//        Member member = Member.of(googleUser, memberRequest);
+//        return memberRepository.save(member);
+//    }
 
     @Transactional(readOnly = true)
     public List<MemberResponse> getAllMembers() {

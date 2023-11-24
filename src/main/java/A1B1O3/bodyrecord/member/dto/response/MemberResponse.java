@@ -10,11 +10,10 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
 public class MemberResponse {
-    private final int memberCode;
+    private final Long memberCode;
     private final String memberSocialid;
     private final String memberName;
     private final String memberNickname;
-    private final String goalcategoryName;
     private final MemberState status;
     public static MemberResponse from(final Member member) {
         return new MemberResponse(
@@ -22,7 +21,6 @@ public class MemberResponse {
                 member.getMemberSocialid(),
                 member.getMemberName(),
                 member.getMemberNickname(),
-                member.getGoalcategoryName(),
                 member.getState()
         );
     }

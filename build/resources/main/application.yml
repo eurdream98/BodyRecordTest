@@ -6,45 +6,18 @@ spring:
           google:
             client-id: 210138418334-8lps4ikr6147mm361593c8am5b6eekdu.apps.googleusercontent.com
             client-secret: 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
-            redirect-uri: http://localhost:8080/app/accounts/auth/google/callback
-
-            scope:
-              - https://www.googleapis.com/auth/userinfo.email
-              - https://www.googleapis.com/auth/userinfo.profile
-      provider:
-        google:
-          authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-          token-uri: https://oauth2.googleapis.com/token
-          user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+            scope: profile, email
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bodyrecord2
+    url: jdbc:mysql://localhost:3306/body_record
     username: root
     password: 1234
 
-file:
-  multipart:
-    max-file-size : 10MB
-    max-request-size : 10MB
-    location: D:\files
-    enabled : true
-
-
-
-
-
-
-server:
-  port: 8080
-#  security:
-#    OAuth2:
-#      google:
-#        url: https://accounts.google.com/o/oauth2/v2/auth
-#        client-id: 210138418334-8lps4ikr6147mm361593c8am5b6eekdu.apps.googleusercontent.com
-#        client-secret: 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
-#        callback-url: http://localhost:8080/app/accounts/auth/google/callback
-#        scope: https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+jwt:
+  time:
+    access: 3600000
+    refresh: 1209600000
+  secret:
+    access: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923
+    refresh: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923

@@ -1,9 +1,9 @@
 package A1B1O3.bodyrecord.body.domain;
 
 import A1B1O3.bodyrecord.body.dto.request.BodyUpdateRequest;
-
 import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.member.domain.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
-
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -30,7 +29,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Body extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int bodyCode;
+    private Integer bodyCode;
 
     @Column(nullable = false, name = "weight")
     private float weight;
@@ -43,20 +42,20 @@ public class Body extends BaseEntity {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_code")
-    private Member member;
+    private Member memberCode;
 
 
-    public Body(int bodyCode, float weight, float fat, float muscle, Member member) {
+    public Body(Integer bodyCode, float weight, float fat, float muscle, Member memberCode) {
         super(USABLE);
         this.bodyCode = bodyCode;
         this.weight = weight;
         this.fat = fat;
         this.muscle = muscle;
-        this.member = member;
+        this.memberCode = memberCode;
     }
 
     public static Body of(float weight, float fat, float muscle, Member member) {
-        return new Body(1, weight, fat, muscle, member);
+        return new Body(1, weight, fat, muscle,member);
 //       return new Body();
     }
 

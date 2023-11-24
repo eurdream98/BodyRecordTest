@@ -1,7 +1,6 @@
 package A1B1O3.bodyrecord.body.dto.response;
 
 import A1B1O3.bodyrecord.body.domain.Body;
-
 import A1B1O3.bodyrecord.common.type.StatusType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
