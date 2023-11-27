@@ -21,7 +21,7 @@ public class BodyResponse {
                 body.getWeight(),
                 body.getFat(),
                 body.getMuscle(),
-                body.getStatus()
+                body.getState()
         );
     }
 }
