@@ -34,17 +34,17 @@ public abstract class BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
-    private StatusType status = USEABLE;
+    private StatusType state = USEABLE;
 
-    protected BaseEntity(final StatusType status) {
-        this.status = status;
+    protected BaseEntity(final StatusType state) {
+        this.state = state;
     }
 
     public boolean isDeleted() {
-        return this.status.equals(DELETED);
+        return this.state.equals(DELETED);
     }
 
     public void changeStatusToDeleted() {
-        this.status = DELETED;
+        this.state = DELETED;
     }
 }

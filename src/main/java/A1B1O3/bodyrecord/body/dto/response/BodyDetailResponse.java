@@ -17,7 +17,7 @@ public class BodyDetailResponse {
     private final float weight;
     private final float fat;
     private final float muscle;
-    private final StatusType status;
+    private final StatusType state;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -29,7 +29,7 @@ public class BodyDetailResponse {
                 body.getWeight(),
                 body.getFat(),
                 body.getMuscle(),
-                body.getStatus(), // state 값 가져오기
+                body.getState(), // state 값 가져오기
                 body.getCreatedAt(),
                 body.getModifiedAt()
         );
