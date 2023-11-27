@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Token {
 
     @Id
-    private Long memberCode;
+    private int memberCode;
 
     private String refreshToken;
 
@@ -25,7 +25,7 @@ public class Token {
         this.refreshToken = refreshToken;
     }
 
-    public static Token of(Long memberCode, String refreshToken) {
+    public static Token of(int memberCode, String refreshToken) {
         return new Token(memberCode, refreshToken);
     }
 }

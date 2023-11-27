@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 import static A1B1O3.bodyrecord.common.type.StatusType.DELETED;
-import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
+import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
 import static javax.persistence.EnumType.STRING;
 
 @Getter
@@ -34,7 +34,7 @@ public abstract class BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
-    private StatusType status = USABLE;
+    private StatusType status = USEABLE;
 
     protected BaseEntity(final StatusType status) {
         this.status = status;

@@ -52,8 +52,8 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createAccessToken(Long memberCode) {
-        Claims claims = Jwts.claims().setSubject(memberCode.toString()); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+    public String createAccessToken(int memberCode) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(memberCode)); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
 
         Date now = new Date();
         return Jwts.builder()
@@ -65,8 +65,8 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String createRefreshToken(Long memberCode) {
-        Claims claims = Jwts.claims().setSubject(memberCode.toString()); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+    public String createRefreshToken(int memberCode) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(memberCode)); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
 
         Date now = new Date();
         return Jwts.builder()

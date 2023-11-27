@@ -15,16 +15,16 @@ public class AuthService {
 
     private final TokenRepository tokenRepository;
 
-    public Long registerRefreshToken(Long memberCode, String refreshToken) {
+    public Long registerRefreshToken(int memberCode, String refreshToken) {
 
-        Optional<Token> token = tokenRepository.findById(memberCode);
+        Optional<Token> token = tokenRepository.findById( memberCode);
         if(token.isPresent()) {
             token.get().updateRefreshToken(refreshToken);
         } else {
             tokenRepository.save(Token.of(memberCode, refreshToken));
         }
 
-        return memberCode;
+        return (long) memberCode;
     }
 
 }

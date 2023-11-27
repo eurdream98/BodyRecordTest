@@ -10,12 +10,12 @@ public interface BodyRepository extends JpaRepository<Body,Long> {
 
 
 
-    List<Body> findAllByMemberCodeMemberCode(final Long memberCode);
+    List<Body> findAllByMemberCodeMemberCode(final int memberCode);
     Body save(BodyRequest bodyRequest);
-    boolean existsByMemberCodeAndBodyCode(final Integer memberCode, final Integer bodyCode);
+    boolean existsByMemberCodeAndBodyCode(final int memberCode, final Integer bodyCode);
 
 
-    public void deleteByMemberCodeMemberCode(final Long memberCode);
+    public void deleteByMemberCodeMemberCode(final int memberCode);
 
     List<Body> findByWeightBetweenAndFatBetweenAndMuscleBetween(float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle);
 }

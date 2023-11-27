@@ -24,7 +24,7 @@ public class BodyService {
     private final BodyRepository bodyRepository;
     private final MemberRepository memberRepository;
     @Transactional(readOnly = true)
-   public List<BodyResponse> getAllBodys(final Long memberCode){
+   public List<BodyResponse> getAllBodys(final int memberCode){
         final List<Body> bodys = bodyRepository.findAllByMemberCodeMemberCode(memberCode);
         return bodys.stream()
                 .map(body -> BodyResponse.from(body))
@@ -49,7 +49,7 @@ public class BodyService {
 
 
 
-    public void deleteByMemberCode(final Long memberCode){
+    public void deleteByMemberCode(final int memberCode){
         bodyRepository.deleteByMemberCodeMemberCode(memberCode);
     }
 

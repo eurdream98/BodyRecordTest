@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-import static A1B1O3.bodyrecord.common.type.StatusType.USABLE;
+import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -24,7 +24,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Setter
 @NoArgsConstructor(access = PROTECTED)
 @SQLDelete(sql = "UPDATE body SET status = 'DELETED' WHERE body_code = ?")
-@Where(clause = "status = 'USABLE'")
+@Where(clause = "status = 'USEABLE'")
 @Table(name = "body")
 public class Body extends BaseEntity {
     @Id
@@ -46,7 +46,7 @@ public class Body extends BaseEntity {
 
 
     public Body(Integer bodyCode, float weight, float fat, float muscle, Member memberCode) {
-        super(USABLE);
+        super(USEABLE);
         this.bodyCode = bodyCode;
         this.weight = weight;
         this.fat = fat;

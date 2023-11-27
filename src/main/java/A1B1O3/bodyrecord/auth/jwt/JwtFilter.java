@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
             if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
 
                 Long memberCode = Long.parseLong(jwtTokenProvider.getUseridFromAcs(token));
-                PrincipalDetails userDetails = (PrincipalDetails) principalOAuth2DetailsService.loadUser(memberCode);
+                PrincipalDetails userDetails = (PrincipalDetails) principalOAuth2DetailsService.loadUser(Math.toIntExact(memberCode));
                 Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

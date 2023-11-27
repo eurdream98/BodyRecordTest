@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
 public class MemberResponse {
-    private final Long memberCode;
+    private final int memberCode;
     private final String memberSocialid;
     private final String memberName;
     private final String memberNickname;

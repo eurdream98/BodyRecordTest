@@ -41,9 +41,9 @@ public class PrincipalOAuth2DetailsService extends DefaultOAuth2UserService {
         return new PrincipalDetails(member);
     }
 
-    public OAuth2User loadUser(Long memberCode)  {
+    public OAuth2User loadUser(int memberCode)  {
 
-        Member member = memberRepository.findById(memberCode)
+        Member member = memberRepository.findById( memberCode)
                 .orElseThrow();
 
         return new PrincipalDetails(member);
