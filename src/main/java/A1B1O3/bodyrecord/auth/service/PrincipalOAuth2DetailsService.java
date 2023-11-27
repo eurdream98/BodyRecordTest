@@ -46,6 +46,7 @@ public class PrincipalOAuth2DetailsService extends DefaultOAuth2UserService {
         Member member = memberRepository.findById( memberCode)
                 .orElseThrow();
 
+
         return new PrincipalDetails(member);
     }
 
