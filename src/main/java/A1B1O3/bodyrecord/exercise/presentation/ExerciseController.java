@@ -1,5 +1,6 @@
 package A1B1O3.bodyrecord.exercise.presentation;
 
+import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,41 +31,42 @@ public class ExerciseController {
 
     /*나의 운동기록 전체 조회*/
     @GetMapping
-    public ResponseEntity<List<ExerciseResponse>> getExercises(){
-        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(1);
+    public ResponseEntity<List<ExerciseResponse>> getExercises(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(principalDetails.getMember().getMemberCode());
         return ResponseEntity.ok(exerciseResponse);
     }
 
     /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
-    public ResponseEntity<ExerciseDetailResponse> getExercise(@PathVariable final int exerciseCode)
+    public ResponseEntity<ExerciseDetailResponse> getExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode)
     {
-        exerciseService.validateExerciseByMember(/* 접근자.getMemberCode() */ 1, exerciseCode);
+        exerciseService.validateExerciseByMember(principalDetails.getMember().getMemberCode(), exerciseCode);
        final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(exerciseCode);
        return ResponseEntity.ok(exerciseDetailResponse);
     }
 
     /*운동기록 등록*/
     @PostMapping
-    public ResponseEntity<Void>saveExercise(/*접근자*/ @ModelAttribute @Valid final ExerciseRequest exerciseRequest) throws IOException {
-        final int exerciseCode = exerciseService.save(/*접근자.getMemberCode*/1,exerciseRequest);
+    public ResponseEntity<Void>saveExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute @Valid final ExerciseRequest exerciseRequest) throws IOException {
+        final int exerciseCode = exerciseService.save(principalDetails.getMember().getMemberCode(),exerciseRequest);
 
         return ResponseEntity.created(URI.create("/exercise/log/"+exerciseCode)).build();
     }
 
     /*운동기록 수정*/
     @PutMapping("/{exerciseCode}")
-    public ResponseEntity<Void> updateExercise(@PathVariable final int exerciseCode,
+    public ResponseEntity<Void> updateExercise(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                               @PathVariable final int exerciseCode,
                                                @ModelAttribute @Valid final ExerciseUpdateRequest exerciseUpdateRequest) throws IOException {
-        exerciseService.validateExerciseByMember(/*접근자.getMemberCode*/1, exerciseCode);
+        exerciseService.validateExerciseByMember(principalDetails.getMember().getMemberCode(), exerciseCode);
         exerciseService.update(exerciseCode, exerciseUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
     /*운동기록 삭제*/
     @DeleteMapping("/{exerciseCode}")
-    public ResponseEntity<Void> deleteExercise(/*접근자*/ @PathVariable final int exerciseCode){
-        exerciseService.validateExerciseByMember(/*접근자.getMemberCode()*/ 1, exerciseCode);
+    public ResponseEntity<Void> deleteExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode){
+        exerciseService.validateExerciseByMember(principalDetails.getMember().getMemberCode(), exerciseCode);
         exerciseService.delete(exerciseCode);
         return ResponseEntity.noContent().build();
     }
