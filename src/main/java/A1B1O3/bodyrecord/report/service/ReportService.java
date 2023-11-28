@@ -1,14 +1,16 @@
 package A1B1O3.bodyrecord.report.service;
 
-import A1B1O3.bodyrecord.challenge.domain.repository.*;
+import A1B1O3.bodyrecord.challenge.domain.repository.Challenge;
+import A1B1O3.bodyrecord.challenge.domain.repository.ChallengeCertification;
+import A1B1O3.bodyrecord.challenge.domain.repository.ChallengeCertificationRepository;
+import A1B1O3.bodyrecord.challenge.domain.repository.ChallengeRepository;
 import A1B1O3.bodyrecord.member.domain.Member;
-import A1B1O3.bodyrecord.report.dto.request.ReportRequest;
-
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import A1B1O3.bodyrecord.report.domain.repository.Report;
 import A1B1O3.bodyrecord.report.domain.repository.ReportCategory;
 import A1B1O3.bodyrecord.report.domain.repository.ReportCategoryRepository;
 import A1B1O3.bodyrecord.report.domain.repository.ReportRepository;
+import A1B1O3.bodyrecord.report.dto.request.ReportRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

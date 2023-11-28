@@ -1,6 +1,5 @@
 package A1B1O3.bodyrecord.report.domain.repository;
 
-import A1B1O3.bodyrecord.report.domain.repository.ReportCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

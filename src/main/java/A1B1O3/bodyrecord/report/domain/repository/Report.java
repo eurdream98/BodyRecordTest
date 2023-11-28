@@ -1,6 +1,7 @@
 package A1B1O3.bodyrecord.report.domain.repository;
 
-import A1B1O3.bodyrecord.challenge.domain.repository.*;
+import A1B1O3.bodyrecord.challenge.domain.repository.Challenge;
+import A1B1O3.bodyrecord.challenge.domain.repository.ChallengeCertification;
 import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

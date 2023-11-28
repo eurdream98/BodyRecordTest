@@ -1,33 +1,28 @@
-package A1B1O3.bodyrecord.challenge.dto.response;
+package A1B1O3.bodyrecord.admin.dto.response;
 
 import A1B1O3.bodyrecord.challenge.domain.repository.Challenge;
-import A1B1O3.bodyrecord.member.domain.Member;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
-
 import static lombok.AccessLevel.PUBLIC;
 
-@Setter
 @Getter
+@Setter
 @RequiredArgsConstructor(access = PUBLIC)
-public class MyChallengeResponse {
+public class ChallengeDetailAdminResponse {
 
-    private final int challengeCode;
     private final String challengeTitle;
-    private final String memberName;
     private final LocalDate challengeStartdate;
     private final LocalDate challengeEnddate;
+    private final String challengeContent;
 
-    public static MyChallengeResponse from(Challenge challenge, Member member) {
-        return new MyChallengeResponse(
-                challenge.getChallengeCode(),
+    public static ChallengeDetailAdminResponse from(final Challenge challenge) {
+        return new ChallengeDetailAdminResponse(
                 challenge.getChallengeTitle(),
-                member.getMemberName(),
                 challenge.getChallengeStartdate(),
-                challenge.getChallengeEnddate()
+                challenge.getChallengeEnddate(),
+                challenge.getChallengeContent()
         );
     }
 }

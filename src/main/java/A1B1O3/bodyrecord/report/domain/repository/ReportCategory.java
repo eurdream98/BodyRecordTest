@@ -6,16 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
 import static javax.persistence.GenerationType.IDENTITY;

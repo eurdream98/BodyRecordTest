@@ -15,14 +15,17 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor(access = PRIVATE)
 public class ChallengeCategoryResponse {
 
-    private final int challengecategoryCode;
+    private final int challengeCode;
+    private final int challengecategoryCode; //수정 가능성
     private final String challengeTitle;
-    private final LocalDate challengeStartdate;
-    private final LocalDate challengeEnddate;
-    private final String challengecategoryName;
+    private final LocalDate challengeStartdate; //수정 가능성
+    private final LocalDate challengeEnddate; //수정 가능성
+    private final String challengecategoryName; //수정 가능성
 
     public static ChallengeCategoryResponse from(final Challenge challenge, ChallengeCategory challengeCategory) {
         return new ChallengeCategoryResponse(
+
+                challenge.getChallengeCode(),
                 challengeCategory.getChallengecategoryCode(),
                 challenge.getChallengeTitle(),
                 challenge.getChallengeStartdate(),
