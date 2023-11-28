@@ -23,8 +23,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @Setter
 @NoArgsConstructor(access = PROTECTED)
-@SQLDelete(sql = "UPDATE body SET status = 'DELETED' WHERE body_code = ?")
-@Where(clause = "status = 'USEABLE'")
+@SQLDelete(sql = "UPDATE body SET state = 'DELETED' WHERE body_code = ?")
+@Where(clause = "state = 'USEABLE'")
 @Table(name = "body")
 public class Body extends BaseEntity {
     @Id

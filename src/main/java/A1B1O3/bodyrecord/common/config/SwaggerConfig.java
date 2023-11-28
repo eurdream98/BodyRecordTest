@@ -1,35 +1,65 @@
 package A1B1O3.bodyrecord.common.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+
+import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
-    private String version = "V0.1";
+    private static final String REFERENCE = "Bearer 토큰 값";
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("A1B1O3.bodyrecord"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .useDefaultResponseMessages(false)
+                .securityContexts(List.of(this.securityContext())) // SecurityContext 설정
+                .securitySchemes(List.of(this.bearerAuthSecurityScheme()));
+    }
+
+    // JWT SecurityContext 구성
+    private SecurityContext securityContext() {
+        return springfox.documentation
+                .spi.service.contexts
+                .SecurityContext
+                .builder()
+                .securityReferences(defaultAuth())
+                .operationSelector(operationContext -> true)
+                .build();
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return List.of(new SecurityReference(REFERENCE, authorizationScopes));
+    }
+
+    private HttpAuthenticationScheme bearerAuthSecurityScheme(){
+        return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name(REFERENCE).build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("제목")
-                .description("설명")
-                .version(version)
+                .title("BodyRecord")
+                .description("명세서")
                 .contact(new Contact("이름", "홈페이지 URL", "e-mail"))
                 .build();
     }
+
 }

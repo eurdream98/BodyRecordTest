@@ -24,8 +24,8 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @Setter
 @NoArgsConstructor(access = PROTECTED)
-@SQLDelete(sql = "UPDATE exercise SET status = 'DELETED' WHERE exercise_code = ?")
-@Where(clause = "status = 'USEABLE'")
+@SQLDelete(sql = "UPDATE exercise SET state = 'DELETED' WHERE exercise_code = ?")
+@Where(clause = "state = 'USEABLE'")
 public class Exercise extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
