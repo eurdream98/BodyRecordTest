@@ -8,10 +8,14 @@ import A1B1O3.bodyrecord.auth.OAuth2SuccessHandler;
 import A1B1O3.bodyrecord.auth.service.AuthService;
 import A1B1O3.bodyrecord.auth.service.PrincipalOAuth2DetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -33,10 +37,15 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+    private static final String[] DOC_URLS = {
+            "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html","/swagger-ui/**"
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         return http
+
                     // CSRF 설정 Disable
                     .csrf()
                     .disable()
@@ -47,8 +56,10 @@ public class SecurityConfig {
                     // 요청에 대한 권한 체크
                     .authorizeRequests()
                     .antMatchers("/oauth2/**").permitAll()
+                    .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
+
                 .and()
                     // oauth2 login 처리 service 설정
                     .oauth2Login()
@@ -87,6 +98,9 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 //import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.service.ExerciseService;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
@@ -25,18 +26,30 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Api(tags = {"운동기록"})
 @RequestMapping("/exercise/log")
 public class ExerciseController {
     private final ExerciseService exerciseService;
 
-    /*나의 운동기록 전체 조회*/
+    @ApiOperation(value = "나의 운동기록 전체 조회", notes = "회원코드를 기반으로 특정 회원의 운동기록 전체 목록을 보여준다.")
+    @ApiImplicitParam(name = "principalDetails", value = "인가된 회원")
+    @ApiResponse(code = 200, message = "success", response = ExerciseResponse.class)
+
     @GetMapping
     public ResponseEntity<List<ExerciseResponse>> getExercises(@AuthenticationPrincipal PrincipalDetails principalDetails){
         final List<ExerciseResponse> exerciseResponse = exerciseService.getAllExercise(principalDetails.getMember().getMemberCode());
         return ResponseEntity.ok(exerciseResponse);
     }
+    @ApiOperation(value = "나의 운동기록 상세 조회", notes = "회원코드와 운동코드를 기반으로 특정 회원의 특정 운동 기록을 보여준다.")
+    @ApiImplicitParams ({
+        @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
+        @ApiImplicitParam(name = "exerciseCode", value = "운동코드")
+    })
+    @ApiResponses({
+            @ApiResponse(code= 200, message = "success", response = ExerciseDetailResponse.class),
+            @ApiResponse(code= 2000, message = "invalid exercise log with member")
+    })
 
-    /*나의 운동기록 상세 조회*/
     @GetMapping("/{exerciseCode}")
     public ResponseEntity<ExerciseDetailResponse> getExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode)
     {
@@ -45,7 +58,16 @@ public class ExerciseController {
        return ResponseEntity.ok(exerciseDetailResponse);
     }
 
-    /*운동기록 등록*/
+    @ApiOperation(value = "운동기록 등록", notes = "회원 자신의 운동기록을 등록한다.")
+    @ApiImplicitParams ({
+            @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
+            @ApiImplicitParam(name = "exerciseRequest", value = "운동기록요청")
+    })
+    @ApiResponses({
+            @ApiResponse(code= 201, message = "created"),
+            @ApiResponse(code= 1001, message = "not found member id")
+    })
+
     @PostMapping
     public ResponseEntity<Void>saveExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute @Valid final ExerciseRequest exerciseRequest) throws IOException {
         final int exerciseCode = exerciseService.save(principalDetails.getMember().getMemberCode(),exerciseRequest);
@@ -53,7 +75,18 @@ public class ExerciseController {
         return ResponseEntity.created(URI.create("/exercise/log/"+exerciseCode)).build();
     }
 
-    /*운동기록 수정*/
+    @ApiOperation(value = "운동기록 수정", notes = "회원 자신의 운동기록을 수정한다.")
+    @ApiImplicitParams ({
+            @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
+            @ApiImplicitParam(name = "exerciseCode", value = "운동코드"),
+            @ApiImplicitParam(name = "exerciseUpdateRequest", value = "운동기록수정요청")
+    })
+    @ApiResponses({
+            @ApiResponse(code= 201, message = "created"),
+            @ApiResponse(code= 2000, message = "invalid exercise log with member"),
+            @ApiResponse(code= 2001, message = "not found exercise log id")
+    })
+
     @PutMapping("/{exerciseCode}")
     public ResponseEntity<Void> updateExercise(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                @PathVariable final int exerciseCode,
@@ -63,7 +96,16 @@ public class ExerciseController {
         return ResponseEntity.noContent().build();
     }
 
-    /*운동기록 삭제*/
+    @ApiOperation(value = "운동기록 삭제", notes = "회원 자신의 운동기록을 삭제한다.")
+    @ApiImplicitParams ({
+            @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
+            @ApiImplicitParam(name = "exerciseCode", value = "운동코드"),
+    })
+    @ApiResponses({
+            @ApiResponse(code= 204, message = "no content"),
+            @ApiResponse(code= 2001, message = "not found exercise log id")
+    })
+
     @DeleteMapping("/{exerciseCode}")
     public ResponseEntity<Void> deleteExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode){
         exerciseService.validateExerciseByMember(principalDetails.getMember().getMemberCode(), exerciseCode);
