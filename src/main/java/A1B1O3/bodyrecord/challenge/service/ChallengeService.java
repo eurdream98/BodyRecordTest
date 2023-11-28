@@ -63,7 +63,7 @@ public class ChallengeService {
 
         return participatingChallenges.stream()
                 .filter(challengeParticipate -> challengeParticipate.getChallenge().getChallengeEnddate().isAfter(currentDate))
-                .map(challengeParticipate -> MyChallengeResponse.from(challengeParticipate.getChallenge()))
+                .map(challengeParticipate -> MyChallengeResponse.from(challengeParticipate.getChallenge(), member))
                 .collect(Collectors.toList());
     }
 
@@ -133,6 +133,7 @@ public class ChallengeService {
         challengeCertification.setChallengeImage(challengeCertificationRequest.getChallengeImage());
         challengeCertification.setChallengeCode(challenge);
         challengeCertification.setMemberCode(member);
+
 
         challengeCertificationRepository.save(challengeCertification);
 
@@ -229,7 +230,7 @@ public class ChallengeService {
     }
 
 
-    /* 13. 기간에 따른 달성률 */
+    /* 13. 챌린지 달성률 */
     public double getChallengeAchievementRate(int memberCode, int challengeCode) {
         Challenge challenge = challengeRepository.findByChallengeCode(challengeCode)
                 .orElseThrow(() -> new EntityNotFoundException("Challenge not found with code: " + challengeCode));
@@ -256,6 +257,17 @@ public class ChallengeService {
         double achievementRate = (double) totalDays / challengeDays * 100;
         //최대 100%
         return Math.min(100, achievementRate);
+    }
+
+    /* 14. 챌린지의 현재 회원수 */
+    public int getChallengeParticipantsCount(int challengeCode) {
+        Challenge challenge = challengeRepository.findByChallengeCode(challengeCode)
+                .orElseThrow(() -> new EntityNotFoundException("Challenge not found with code: " + challengeCode));
+
+        List<ChallengeParticipate> participants = challengeParticipateRepository
+                .findByChallengeCodeAndState(challenge, ChallengeParticipateState.JOIN);
+
+        return participants.size();
     }
 
 }

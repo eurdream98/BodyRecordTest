@@ -19,10 +19,6 @@ public class ChallengeDetailResponse {
     private final String challengeContent;
     private final LocalDate challengeStartdate;
     private final LocalDate challengeEnddate;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private final LocalDateTime createdAt;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private final LocalDateTime modifiedAt;
 
     public static ChallengeDetailResponse from(final Challenge challenge) {
         return new ChallengeDetailResponse(
@@ -30,9 +26,7 @@ public class ChallengeDetailResponse {
                 challenge.getChallengeTitle(),
                 challenge.getChallengeContent(),
                 challenge.getChallengeStartdate(),
-                challenge.getChallengeEnddate(),
-                challenge.getCreatedAt(),
-                challenge.getModifiedAt()
+                challenge.getChallengeEnddate()
         );
     }
 }

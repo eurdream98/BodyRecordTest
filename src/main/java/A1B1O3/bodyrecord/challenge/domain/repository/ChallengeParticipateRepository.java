@@ -36,5 +36,8 @@ public interface ChallengeParticipateRepository extends JpaRepository<ChallengeP
     @Query("UPDATE ChallengeParticipate cp SET cp.state = 'LEAVE' WHERE cp.challengeCode = :challenge AND cp.state = 'JOIN'")
     void leaveByChallengeCode(@Param("challenge") Challenge challenge);
 
+    /* 현재 회원 수 */
+    List<ChallengeParticipate> findByChallengeCodeAndState(Challenge challenge, ChallengeParticipateState state);
+
 
 }
