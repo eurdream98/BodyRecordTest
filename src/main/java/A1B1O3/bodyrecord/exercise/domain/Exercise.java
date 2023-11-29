@@ -57,7 +57,7 @@ public class Exercise extends BaseEntity {
 
     public Exercise(
             final int exerciseCode,
-            final Member member,
+            final Member memberCode,
             final String exerciseName,
             final float exerciseWeight,
             final int exerciseCount,

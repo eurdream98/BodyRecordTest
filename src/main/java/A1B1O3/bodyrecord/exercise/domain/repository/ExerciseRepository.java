@@ -18,5 +18,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Integer> {
 
     boolean existsByMemberMemberCodeAndExerciseCode(final int memberCode, final int exerciseCode);
 
-    List<Exercise> findByExerciseShareIsTrue();
+    List<Exercise> findByExerciseShareIsTrue(Pageable pageable);
+
 }

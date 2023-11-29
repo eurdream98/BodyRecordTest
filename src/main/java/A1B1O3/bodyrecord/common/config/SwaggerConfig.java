@@ -1,13 +1,22 @@
 package A1B1O3.bodyrecord.common.config;
 
 
+import com.fasterxml.classmate.TypeResolver;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.AlternateTypeRule;
+import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -19,9 +28,12 @@ import java.util.List;
 public class SwaggerConfig {
     private static final String REFERENCE = "Bearer 토큰 값";
 
+    TypeResolver typeResolver = new TypeResolver();
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.OAS_30)
+                .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class),typeResolver.resolve(Page.class)))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("A1B1O3.bodyrecord"))
                 .paths(PathSelectors.any())
@@ -30,6 +42,19 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .securityContexts(List.of(this.securityContext())) // SecurityContext 설정
                 .securitySchemes(List.of(this.bearerAuthSecurityScheme()));
+    }
+    @Getter
+    @Setter
+    @ApiModel
+    static class Page{
+        @ApiModelProperty(value = "페이지 번호")
+        private Integer page;
+
+        @ApiModelProperty(value = "페이지 크기", allowableValues = "range[0, 100]")
+        private Integer size;
+
+        @ApiModelProperty(value = "정렬(사용법:컬럼명,ASC|DESC)")
+        private List<String> sort;
     }
 
     // JWT SecurityContext 구성
@@ -57,8 +82,6 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("BodyRecord")
-                .description("명세서")
-                .contact(new Contact("이름", "홈페이지 URL", "e-mail"))
                 .build();
     }
 

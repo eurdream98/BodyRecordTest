@@ -117,16 +117,18 @@ public class ExerciseService {
 
     @Transactional(readOnly = true)
     public Slice<SearchResponse> searchBody(Pageable pageable, float minWeight, float maxWeight, float minFat, float maxFat, float minMuscle, float maxMuscle){
-        List<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareIsTrue();
-//        if (minWeight > 0.0 && maxWeight > 0.0 && minFat > 0.0 && maxFat > 0.0 && minMuscle > 0.0 && maxMuscle > 0.0){
-//            List<Body> body = bodyRepository.findByWeightBetweenAndFatBetweenAndMuscleBetween(minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
-//            List<Exercise> exercise = exerciseRepository.findByExerciseShareIsTrue();
-//
-//            searchBodyExercise = exercise.stream().filter(e -> body.stream().anyMatch
-//                    (b -> e.getMember().equals(b.getMember()))).collect(Collectors.toList());
-//        }
-        return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
+        List<Exercise> searchBodyExercise = exerciseRepository.findByExerciseShareIsTrue(pageable);
+        if (minWeight > 0.0 && maxWeight > 0.0 && minFat > 0.0 && maxFat > 0.0 && minMuscle > 0.0 && maxMuscle > 0.0){
+            List<Body> body = bodyRepository.findByWeightBetweenAndFatBetweenAndMuscleBetween(minWeight, maxWeight, minFat, maxFat, minMuscle, maxMuscle);
+            List<Exercise> exercise = exerciseRepository.findByExerciseShareIsTrue(pageable);
 
+            searchBodyExercise = exercise.stream().filter(e -> body.stream().anyMatch
+                    (b -> e.getMember().equals(b.getMemberCode()))).collect(Collectors.toList());
+
+
+        }
+
+        return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
     }
 
