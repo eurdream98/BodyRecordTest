@@ -10,9 +10,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/body_record3
+    url: jdbc:mysql://localhost:3306/body_record
     username: root
-    password: 99079907
+    password: 1234
 
   mvc:
     pathmatch:

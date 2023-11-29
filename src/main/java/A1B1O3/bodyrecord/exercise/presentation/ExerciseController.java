@@ -113,10 +113,22 @@ public class ExerciseController {
         return ResponseEntity.noContent().build();
     }
 
+    @ApiOperation(value = "운동기록 검색", notes = "다른 회원들의 기록을 검색한다.")
+    @ApiImplicitParams ({
+            @ApiImplicitParam(name = "minWeight", value = "최소몸무게"),
+            @ApiImplicitParam(name = "maxWeight", value = "최대몸무게"),
+            @ApiImplicitParam(name = "minFat", value = "최소체지방률"),
+            @ApiImplicitParam(name = "maxFat", value = "최대체지방률"),
+            @ApiImplicitParam(name = "minMuscle", value = "최소근육량"),
+            @ApiImplicitParam(name = "maxMuscle", value = "최대근육량"),
+    })
+    @ApiResponses({
+            @ApiResponse(code= 200, message = "success")
+    })
 
     /*운동기록 체성분별 검색*/
     @GetMapping("/search/body")
-    public ResponseEntity<Slice<SearchResponse>> searchBody(@PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<Slice<SearchResponse>> searchBody(@PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
                                                             @RequestParam(required = false, defaultValue = "0.0") float minWeight,
                                                             @RequestParam(required = false, defaultValue = "0.0") float maxWeight,
                                                             @RequestParam(required = false, defaultValue = "0.0") float minFat,

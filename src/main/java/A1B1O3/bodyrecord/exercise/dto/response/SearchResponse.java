@@ -1,10 +1,12 @@
 package A1B1O3.bodyrecord.exercise.dto.response;
 
 import A1B1O3.bodyrecord.exercise.domain.Exercise;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -22,6 +24,11 @@ public class SearchResponse {
 
     private final String memberNickName;
 
+    @JsonFormat(pattern = "YYYY-MM-DD")
+    private final LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "YYYY-MM-DD")
+    private final LocalDateTime modifiedAt;
 
     public static SearchResponse from(final Exercise exercise){
         return new SearchResponse(
@@ -30,7 +37,9 @@ public class SearchResponse {
                 exercise.getExerciseCount(),
                 exercise.getExerciseTime(),
                 exercise.getExerciseShare(),
-                exercise.getMember().getMemberNickname()
+                exercise.getMember().getMemberNickname(),
+                exercise.getCreatedAt(),
+                exercise.getModifiedAt()
 
         );
     }
