@@ -27,8 +27,8 @@ public class BodyDetailResponse {
         return new BodyDetailResponse(
                 body.getBodyCode(),
                 body.getWeight(),
-                body.getFat(),
                 body.getMuscle(),
+                body.getFat(),
                 body.getState(), // state 값 가져오기
                 body.getCreatedAt(),
                 body.getModifiedAt()

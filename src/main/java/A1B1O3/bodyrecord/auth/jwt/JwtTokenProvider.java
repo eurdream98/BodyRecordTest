@@ -1,6 +1,5 @@
 package A1B1O3.bodyrecord.auth.jwt;
 
-import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

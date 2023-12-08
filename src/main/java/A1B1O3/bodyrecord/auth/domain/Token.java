@@ -15,7 +15,6 @@ import static lombok.AccessLevel.PROTECTED;
 @AllArgsConstructor(access = PRIVATE)
 @Getter
 public class Token {
-
     @Id
     private int memberCode;
 

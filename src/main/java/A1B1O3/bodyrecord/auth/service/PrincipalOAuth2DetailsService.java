@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
-public class PrincipalOAuth2DetailsService extends DefaultOAuth2UserService {
+public class PrincipalOAuth2DetailsService extends DefaultOAuth2UserService{
 
     private final MemberRepository memberRepository;
 
@@ -28,13 +28,12 @@ public class PrincipalOAuth2DetailsService extends DefaultOAuth2UserService {
 
         String socialId = oAuth2User.getAttributes().get("email").toString();
         String name = oAuth2User.getAttributes().get("name").toString();
-        String nickname = oAuth2User.getAttributes().get("name").toString();
 
         Member member = memberRepository.findByMemberSocialid(socialId);
 
         if (member == null) {
             log.info("구글 로그인이 최초입니다. 회원가입을 진행합니다.");
-            member = Member.of(socialId, name, nickname, MemberState.ACTIVE, Role.ROLE_MEMBER);
+            member = Member.of(socialId, name, MemberState.ACTIVE, Role.ROLE_MEMBER);
             memberRepository.save(member);
         }
 

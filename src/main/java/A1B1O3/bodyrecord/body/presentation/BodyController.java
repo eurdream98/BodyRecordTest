@@ -1,7 +1,6 @@
 package A1B1O3.bodyrecord.body.presentation;
 
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
-import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
 import A1B1O3.bodyrecord.body.service.BodyService;
@@ -41,9 +40,9 @@ public class BodyController {
 
 
     @PostMapping
-    public ResponseEntity<Body> insert(@RequestBody BodyRequest bodyRequest,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Body body = bodyService.insert(bodyRequest,principalDetails);
-        return new ResponseEntity<>(body, HttpStatus.CREATED);
+    public ResponseEntity<Void> insert(@RequestBody BodyRequest bodyRequest,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        bodyService.insert(bodyRequest,principalDetails);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("")
