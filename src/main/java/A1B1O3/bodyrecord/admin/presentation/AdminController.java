@@ -3,6 +3,7 @@ package A1B1O3.bodyrecord.admin.presentation;
 import A1B1O3.bodyrecord.admin.dto.response.*;
 import A1B1O3.bodyrecord.admin.service.AdminService;
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
+import A1B1O3.bodyrecord.common.exception.UnauthorizedException;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,6 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
-
 
     @ApiOperation(value = "관리자 챌린지 신고 목록 조회", notes = "관리자가 챌린지 신고 목록을 조회합니다.")
     @ApiResponses({
@@ -107,12 +107,12 @@ public class AdminController {
     })
     /* 7. 관리자 챌린지 삭제 */
     @DeleteMapping("/challenges/{challengeCode}")
-    public ResponseEntity<String> deleteChallengeAdmin(@PathVariable int challengeCode) {
+    public ResponseEntity<Void> deleteChallengeAdmin(@PathVariable int challengeCode) {
         try {
             adminService.deleteChallengeAdmin(challengeCode);
-            return ResponseEntity.ok("Challenge with code " + challengeCode + " has been deleted by the administrator.");
+            return ResponseEntity.ok().build();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -136,12 +136,12 @@ public class AdminController {
     })
     /* 9. 관리자 챌린지인증 삭제 */
     @DeleteMapping("/certifications/{challengecerCode}")
-    public ResponseEntity<String> deleteChallengeCertification(@PathVariable int challengecerCode) {
+    public ResponseEntity<Void> deleteChallengeCertification(@PathVariable int challengecerCode) {
         try {
             adminService.deleteChallengeCertification(challengecerCode);
-            return ResponseEntity.ok("Challenge certification with code " + challengecerCode + " has been deleted.");
+            return ResponseEntity.ok().build();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -178,6 +178,5 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
 
 }
