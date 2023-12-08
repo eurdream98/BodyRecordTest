@@ -1,7 +1,5 @@
 package A1B1O3.bodyrecord.member.domain;
 
-import A1B1O3.bodyrecord.member.dto.request.MemberRequest;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +36,10 @@ public class Member {
     @Column(nullable = false, unique = true, length = 20)
     private String memberName;
 
-    @Column(nullable = false)
+    @Column
+    private String memberImage;
+
+    @Column
     private String memberNickname;
 
     @Enumerated(EnumType.STRING)
@@ -62,16 +63,34 @@ public class Member {
         this.memberNickname = memberNickname;
     }
 
-    public Member(String memberSocialid, String memberName, String memberNickname, MemberState state, Role role) {
+    public Member(String memberSocialid, String memberName,String memberNickname,MemberState state, Role role) {
         this.memberSocialid = memberSocialid;
         this.memberName = memberName;
         this.memberNickname = memberNickname;
         this.state = state;
         this.role = role;
     }
-
-    public static Member of(String memberSocialid, String memberName, String memberNickname, MemberState state, Role role) {
-
-        return new Member(memberSocialid, memberName, memberNickname, state, role);
+    public Member(String memberSocialid, String memberName,MemberState state, Role role) {
+        this.memberSocialid = memberSocialid;
+        this.memberName = memberName;
+        this.state = state;
+        this.role = role;
     }
+
+//    public static Member of(String memberSocialid, String memberName,MemberState state, Role role) {
+//
+//        return new Member(memberSocialid, memberName,state, role);
+//    }
+
+    public static Member of(String memberSocialid, String memberName, MemberState state, Role role) {
+
+        return new Member(memberSocialid, memberName,state, role);
+    }
+
+    public void updateImageAndNickname(String memberImage,String memberNickname) {
+        this.memberImage = memberImage;
+        this.memberNickname = memberNickname;
+    }
+
+
 }

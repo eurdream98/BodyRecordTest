@@ -3,7 +3,6 @@ package A1B1O3.bodyrecord.body.domain;
 import A1B1O3.bodyrecord.body.dto.request.BodyUpdateRequest;
 import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.member.domain.Member;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,24 +44,28 @@ public class Body extends BaseEntity {
     private Member memberCode;
 
 
-    public Body(Integer bodyCode, float weight, float fat, float muscle, Member memberCode) {
+    public Body(float weight,float muscle, float fat, Member memberCode) {
         super(USEABLE);
-        this.bodyCode = bodyCode;
         this.weight = weight;
-        this.fat = fat;
         this.muscle = muscle;
+        this.fat = fat;
         this.memberCode = memberCode;
     }
 
-    public static Body of(float weight, float fat, float muscle, Member member) {
-        return new Body(1, weight, fat, muscle,member);
+
+    public static Body of(float weight, float muscle, float fat,Member member) {
+        return new Body(weight, muscle, fat,member);
 //       return new Body();
     }
+//    public static Body of(float weight, float fat, float muscle,Member member) {
+//        return new Body(1, weight, fat, muscle,member);
+////       return new Body();
+//    }
 
     public void update(BodyUpdateRequest bodyUpdateRequest) {
         this.weight = bodyUpdateRequest.getWeight();
-        this.fat = bodyUpdateRequest.getFat();
         this.muscle = bodyUpdateRequest.getMuscle();
+        this.fat = bodyUpdateRequest.getFat();
     }
 
 

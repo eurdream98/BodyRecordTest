@@ -6,10 +6,8 @@ import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
-import A1B1O3.bodyrecord.member.domain.MemberState;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,20 +29,13 @@ public class BodyService {
                 .collect(Collectors.toList());
     }
     @Transactional
-    public Body insert(BodyRequest bodyRequest,@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public void insert( BodyRequest bodyRequest, PrincipalDetails principalDetails){
 
-        Member member = new Member();
-        member.setMemberCode(principalDetails.getMember().getMemberCode());
-        member.setMemberName(principalDetails.getMember().getMemberName());
-        member.setMemberSocialid(principalDetails.getMember().getMemberSocialid());
-        member.setMemberNickname(principalDetails.getMember().getMemberNickname());
-//        member.setState(MemberState.ACTIVE);
-        member.setState(MemberState.ACTIVE);
-        member = memberRepository.save(member);
+        Member member = memberRepository.findById(principalDetails.getMember().getMemberCode()).orElseThrow();
+        member.updateImageAndNickname(bodyRequest.getMemberImage(),bodyRequest.getMemberNickname());
 
-
-        Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getFat(),bodyRequest.getMuscle(),member);
-        return bodyRepository.save(body);
+        Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getMuscle(),bodyRequest.getFat(),member);
+        bodyRepository.save(body);
     }
 
 

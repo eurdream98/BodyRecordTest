@@ -12,15 +12,15 @@ import static lombok.AccessLevel.PRIVATE;
 public class BodyResponse {
     private final int bodyCode;
     private final float weight;
-    private final float fat;
     private final float muscle;
+    private final float fat;
     private final StatusType state;
     public static BodyResponse from(final Body body) {
         return new BodyResponse(
                 body.getBodyCode(),
                 body.getWeight(),
-                body.getFat(),
                 body.getMuscle(),
+                body.getFat(),
                 body.getState()
         );
     }

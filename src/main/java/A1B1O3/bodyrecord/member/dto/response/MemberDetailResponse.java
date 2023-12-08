@@ -16,6 +16,7 @@ public class MemberDetailResponse {
     private final int memberCode;
     private final String memberSocialid;
     private final String memberName;
+    private final String memberImage;
     private final String memberNickname;
     private final MemberState status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -28,6 +29,7 @@ public class MemberDetailResponse {
                 member.getMemberCode(),
                 member.getMemberSocialid(),
                 member.getMemberName(),
+                member.getMemberImage(),
                 member.getMemberNickname(),
                 member.getState(),
                 member.getCreatedAt(),

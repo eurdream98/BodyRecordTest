@@ -13,6 +13,7 @@ public class MemberResponse {
     private final int memberCode;
     private final String memberSocialid;
     private final String memberName;
+    private final String memberImage;
     private final String memberNickname;
     private final MemberState status;
     public static MemberResponse from(final Member member) {
@@ -20,6 +21,7 @@ public class MemberResponse {
                 member.getMemberCode(),
                 member.getMemberSocialid(),
                 member.getMemberName(),
+                member.getMemberImage(),
                 member.getMemberNickname(),
                 member.getState()
         );

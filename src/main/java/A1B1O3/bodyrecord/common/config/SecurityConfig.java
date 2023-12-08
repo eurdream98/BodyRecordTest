@@ -58,7 +58,7 @@ public class SecurityConfig {
                     .antMatchers("/oauth2/**").permitAll()
                     .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                .anyRequest().authenticated()
 
                 .and()
                     // oauth2 login 처리 service 설정
