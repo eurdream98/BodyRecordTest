@@ -4,6 +4,7 @@ import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
 import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
+import A1B1O3.bodyrecord.body.dto.request.OnlyBodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
@@ -37,14 +38,23 @@ public class BodyService {
         Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getMuscle(),bodyRequest.getFat(),member);
         bodyRepository.save(body);
     }
+    @Transactional
+public Body updateBody(OnlyBodyRequest onlyBodyRequest,PrincipalDetails principalDetails) {
+        Member member = memberRepository.findById(principalDetails.getMember().getMemberCode()).orElseThrow();
+        Body body = Body.of2(onlyBodyRequest.getWeight(), onlyBodyRequest.getMuscle(), onlyBodyRequest.getFat(),member);
 
-
-
+    return bodyRepository.save(body);
+}
     public void deleteByMemberCode(final int memberCode){
         bodyRepository.deleteByMemberCodeMemberCode(memberCode);
     }
 
 
+//    @Transactional
+//    public void insertBody(OnlyBodyRequest onlyBodyRequest){
+//        Body body = Body.of2(onlyBodyRequest.getWeight(),onlyBodyRequest.getMuscle(),onlyBodyRequest.getFat());
+//        bodyRepository.save(body);
+//    }
 
 
 }
