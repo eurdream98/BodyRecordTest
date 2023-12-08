@@ -128,12 +128,10 @@ public class ChallengeService {
         Member member = (Member) memberRepository.findByMemberCode(memberCode)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with code: " + challengeCertificationRequest.getMemberCode()));
 
-
         ChallengeCertification challengeCertification = new ChallengeCertification();
         challengeCertification.setChallengeImage(challengeCertificationRequest.getChallengeImage());
         challengeCertification.setChallengeCode(challenge);
         challengeCertification.setMemberCode(member);
-
 
         challengeCertificationRepository.save(challengeCertification);
 
@@ -231,7 +229,7 @@ public class ChallengeService {
 
 
     /* 13. 챌린지 달성률 */
-    public double getChallengeAchievementRate(int memberCode, int challengeCode) {
+    public int getChallengeAchievementRate(int memberCode, int challengeCode) {
         Challenge challenge = challengeRepository.findByChallengeCode(challengeCode)
                 .orElseThrow(() -> new EntityNotFoundException("Challenge not found with code: " + challengeCode));
 
@@ -255,8 +253,11 @@ public class ChallengeService {
         long challengeDays = ChronoUnit.DAYS.between(startDate, endDate);
         //계산
         double achievementRate = (double) totalDays / challengeDays * 100;
+        //
+        int roundedRate = (int) achievementRate;
         //최대 100%
-        return Math.min(100, achievementRate);
+        return Math.min(100, roundedRate);
+//        return Math.min(100, achievementRate);
     }
 
     /* 14. 챌린지의 현재 회원수 */

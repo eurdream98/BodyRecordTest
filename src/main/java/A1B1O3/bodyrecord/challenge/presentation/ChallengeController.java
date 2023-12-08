@@ -25,7 +25,6 @@ public class ChallengeController {
 
     private final ChallengeService challengeService;
 
-
     @ApiOperation(value = "챌린지 카테고리별 조회", notes = "특정 카테고리의 챌린지 목록을 조회합니다.")
     @ApiImplicitParam(name = "challengeCategoryCode", value = "챌린지 카테고리 코드")
     /* 1. 챌린지 카테고리별 조회 */
@@ -82,15 +81,14 @@ public class ChallengeController {
     })
     /* 5. 챌린지 삭제 */
     @DeleteMapping("/{challengeCode}")
-    public ResponseEntity<String> deleteChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
-
+    public ResponseEntity<Void> deleteChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
         try {
             challengeService.deleteChallenge(challengeCode, principalDetails.getMember().getMemberCode());
-            return ResponseEntity.ok("Challenge with code " + challengeCode + " has been deleted.");
+            return ResponseEntity.ok().build();
         } catch (UnauthorizedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         } catch (EntityNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -131,15 +129,11 @@ public class ChallengeController {
             @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
             @ApiImplicitParam(name = "challengecerCode", value = "챌린지 인증 코드"),
     })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "챌린지 인증 삭제 성공"),
-    })
     /* 8. 챌린지 인증 삭제 */
     @DeleteMapping("/certifications/{challengecerCode}")
-    public ResponseEntity<String> deleteChallengeCertification(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengecerCode) {
+    public void deleteChallengeCertification(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengecerCode) {
 
         challengeService.deleteChallengeCertification(challengecerCode, principalDetails.getMember().getMemberCode());
-        return ResponseEntity.ok("Your challenge certification with code " + challengecerCode + " has been deleted.");
     }
 
     @ApiOperation(value = "챌린지 참여", notes = "챌린지에 참여합니다.")
@@ -147,15 +141,11 @@ public class ChallengeController {
             @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
             @ApiImplicitParam(name = "challengeCode", value = "챌린지 코드"),
     })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "챌린지 참여 성공"),
-    })
     /* 9. 챌린지 참여 */
     @PostMapping("/join/{challengeCode}")
-    public ResponseEntity<String> joinChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
+    public void joinChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
 
         challengeService.joinChallenge(challengeCode, principalDetails.getMember().getMemberCode());
-        return ResponseEntity.ok("You have joined the challenge.");
     }
 
     @ApiOperation(value = "챌린지 탈퇴", notes = "챌린지에서 탈퇴합니다.")
@@ -163,15 +153,10 @@ public class ChallengeController {
             @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
             @ApiImplicitParam(name = "challengeCode", value = "챌린지 코드"),
     })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "챌린지 탈퇴 성공"),
-    })
     /* 10. 챌린지 탈퇴 */
     @DeleteMapping("/leave/{challengeCode}")
-    public ResponseEntity<String> leaveChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
-
+    public void leaveChallenge(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable int challengeCode) {
         challengeService.leaveChallenge(challengeCode, principalDetails.getMember().getMemberCode());
-        return ResponseEntity.ok("You have left the challenge.");
     }
 
     @ApiOperation(value = "인기순 챌린지 조회", notes = "인기순으로 챌린지를 조회합니다.")
@@ -206,12 +191,12 @@ public class ChallengeController {
     })
     /* 13. 챌린지 달성률 */
     @GetMapping("/achievement-rate/{challengeCode}")
-    public ResponseEntity<Double> getChallengeAchievementRate(
+    public ResponseEntity<Integer> getChallengeAchievementRate(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @PathVariable int challengeCode
     ) {
-        double achievementRate = challengeService.getChallengeAchievementRate(principalDetails.getMember().getMemberCode(), challengeCode);
-        return ResponseEntity.ok(achievementRate);
+        int roundedRate = challengeService.getChallengeAchievementRate(principalDetails.getMember().getMemberCode(), challengeCode);
+        return ResponseEntity.ok(roundedRate);
     }
 
     @ApiOperation(value = "챌린지 참여 회원수 조회", notes = "챌린지의 현재 참여 회원수를 조회합니다.")

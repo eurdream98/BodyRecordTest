@@ -28,7 +28,6 @@ public class AdminService {
     private final ReportRepository reportRepository;
     private final ReportCategoryRepository reportCategoryRepository;
 
-
     /* 1. 챌린지신고 목록조회 */
     @Transactional(readOnly = true)
     public List<ChallengeReportResponse> getChallengeReports() {

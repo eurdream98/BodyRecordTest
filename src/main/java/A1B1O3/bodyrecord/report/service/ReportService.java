@@ -63,7 +63,6 @@ public class ReportService {
                 .findByChallengecerCode(challengecerCode)
                 .orElseThrow(() -> new EntityNotFoundException("Challenge Certification not found with code: " + challengecerCode));
 
-
         Member member = (Member) memberRepository.findByMemberCode(memberCode)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with code: " + memberCode));
 
