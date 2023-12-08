@@ -52,6 +52,13 @@ public class Body extends BaseEntity {
         this.memberCode = memberCode;
     }
 
+    public Body(float weight, float muscle, float fat) {
+        super(USEABLE);
+        this.weight = weight;
+        this.muscle = muscle;
+        this.fat = fat;
+    }
+
 
     public static Body of(float weight, float muscle, float fat,Member member) {
         return new Body(weight, muscle, fat,member);
@@ -61,7 +68,10 @@ public class Body extends BaseEntity {
 //        return new Body(1, weight, fat, muscle,member);
 ////       return new Body();
 //    }
-
+public static Body of2(float weight, float muscle, float fat,Member member) {
+    return new Body(weight, muscle, fat,member);
+//       return new Body();
+}
     public void update(BodyUpdateRequest bodyUpdateRequest) {
         this.weight = bodyUpdateRequest.getWeight();
         this.muscle = bodyUpdateRequest.getMuscle();

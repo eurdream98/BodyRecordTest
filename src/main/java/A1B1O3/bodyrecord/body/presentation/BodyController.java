@@ -1,7 +1,9 @@
 package A1B1O3.bodyrecord.body.presentation;
 
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
+import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
+import A1B1O3.bodyrecord.body.dto.request.OnlyBodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
 import A1B1O3.bodyrecord.body.service.BodyService;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,12 @@ public class BodyController {
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody BodyRequest bodyRequest,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         bodyService.insert(bodyRequest,principalDetails);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateBody( @RequestBody OnlyBodyRequest onlyBodyRequest,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        bodyService.updateBody(onlyBodyRequest,principalDetails);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
