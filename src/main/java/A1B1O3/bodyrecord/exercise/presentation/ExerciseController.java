@@ -87,7 +87,7 @@ public class ExerciseController {
             @ApiResponse(code= 2001, message = "not found exercise log id")
     })
 
-    @PutMapping("/{exerciseCode}")
+    @PatchMapping("/{exerciseCode}")
     public ResponseEntity<Void> updateExercise(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                @PathVariable final int exerciseCode,
                                                @ModelAttribute @Valid final ExerciseUpdateRequest exerciseUpdateRequest) throws IOException {

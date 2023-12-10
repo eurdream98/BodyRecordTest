@@ -4,7 +4,7 @@ import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -15,9 +15,9 @@ public class ExerciseResponse {
 
     private final String exerciseName;
 
-    private final float exerciseWeight;
+    private final Float exerciseWeight;
 
-    private final int exerciseCount;
+    private final Integer exerciseCount;
 
     private final Time exerciseTime;
 

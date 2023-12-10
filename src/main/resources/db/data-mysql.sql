@@ -11,26 +11,26 @@ INSERT INTO `report_category` (`created_at`,`modified_at`,`state`,`reportcategor
 INSERT INTO `report_category` (`created_at`,`modified_at`,`state`,`reportcategory_name`) VALUES ('2023-12-07 18:07:28.000000','2023-12-07 00:00:00.000000','USEABLE','신고카테고리4');
 
 #member
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자1@gmail.com','사용자1','닉네임1','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자2@gmail.com','사용자2','닉네임2','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자3@gmail.com','사용자3','닉네임3','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자4@gmail.com','사용자4','닉네임4','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자5@gmail.com','사용자5','닉네임5','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자6@gmail.com','사용자6','닉네임6','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자7@gmail.com','사용자7','닉네임7','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자8@gmail.com','사용자8','닉네임8','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자9@gmail.com','사용자9','닉네임9','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자10@gmail.com','사용자10','닉네임10','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자11@gmail.com','사용자11','닉네임11','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자12@gmail.com','사용자12','닉네임12','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자13@gmail.com','사용자13','닉네임13','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자14@gmail.com','사용자14','닉네임14','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자15@gmail.com','사용자15','닉네임15','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자16@gmail.com','사용자16','닉네임16','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자17@gmail.com','사용자17','닉네임17','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자18@gmail.com','사용자18','닉네임18','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자19@gmail.com','사용자19','닉네임19','ROLE_MEMBER','ACTIVE',NULL,NULL);
-INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자20@gmail.com','사용자20','닉네임20','ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자1@gmail.com','사용자1','닉네임1',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자2@gmail.com','사용자2','닉네임2',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자3@gmail.com','사용자3','닉네임3',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자4@gmail.com','사용자4','닉네임4',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자5@gmail.com','사용자5','닉네임5',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자6@gmail.com','사용자6','닉네임6',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자7@gmail.com','사용자7','닉네임7',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자8@gmail.com','사용자8','닉네임8',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자9@gmail.com','사용자9','닉네임9',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자10@gmail.com','사용자10','닉네임10',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자11@gmail.com','사용자11','닉네임11',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자12@gmail.com','사용자12','닉네임12',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자13@gmail.com','사용자13','닉네임13',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자14@gmail.com','사용자14','닉네임14',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자15@gmail.com','사용자15','닉네임15',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자16@gmail.com','사용자16','닉네임16',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자17@gmail.com','사용자17','닉네임17',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자18@gmail.com','사용자18','닉네임18',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자19@gmail.com','사용자19','닉네임19',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
+INSERT INTO `member` (`member_socialid`,`member_name`,`member_nickname`,`member_image`,`role`,`state`,`created_at`,`modified_at`) VALUES ('사용자20@gmail.com','사용자20','닉네임20',NULL,'ROLE_MEMBER','ACTIVE',NULL,NULL);
 
 #body
 INSERT INTO `body` (`weight`,`fat`,`muscle`,`member_code`,`created_at`,`modified_at`,`state`) VALUES (5,1,1,1,'2023-12-07 21:26:30.000000','2023-12-07 00:00:00.000000','USEABLE');

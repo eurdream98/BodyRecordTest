@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 
@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 public class ExerciseDetailResponse {
     private final String exerciseName;
 
-    private final float exerciseWeight;
+    private final Float exerciseWeight;
 
-    private final int exerciseCount;
+    private final Integer exerciseCount;
 
     private final Time exerciseTime;
 

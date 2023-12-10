@@ -15,14 +15,17 @@ import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -37,6 +40,8 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final MemberRepository memberRepository;
     private final BodyRepository bodyRepository;
+    private final String uploadPath = "D:/files";
+
 
     @Transactional(readOnly = true)
     public List<ExerciseResponse> getAllExercise(final int memberCode) {
@@ -63,6 +68,7 @@ public class ExerciseService {
         }
     }
 
+
     public int save(final int memberCode, ExerciseRequest exerciseRequest) throws IOException {
         final Member member = (Member) memberRepository.findByMemberCode(memberCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_MEMBER_ID));
@@ -79,34 +85,53 @@ public class ExerciseService {
                 exerciseRequest.getExerciseDate()
         );
 
-        String uploadPath = "D:\\files";
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + exerciseRequest.getImgFile();
-        File saveFile = new File(uploadPath, fileName);
-        exerciseRequest.getImgFile().transferTo(saveFile);
-        newExercise.setExerciseImageName(fileName);
-        newExercise.setExerciseImagePath(uploadPath + "/" + fileName);
+        if(!exerciseRequest.getImgFile().isEmpty()){
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + exerciseRequest.getImgFile().getOriginalFilename();
+            File saveFile = new File(uploadPath, fileName);
+            exerciseRequest.getImgFile().transferTo(saveFile);
+            newExercise.setExerciseImageName(fileName);
+            newExercise.setExerciseImagePath(uploadPath + "/" + fileName);
+        }
+
 
         final Exercise exercise = exerciseRepository.save(newExercise);
 
         return exercise.getExerciseCode();
     }
 
+    @Transactional
     public void update(int exerciseCode, ExerciseUpdateRequest exerciseUpdateRequest) throws IOException {
-        final  Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
+        final Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
 
-        exercise.update(exerciseUpdateRequest);
+        List<ExerciseUpdateRequest> updatelist = new ArrayList<>();
+        updatelist.add(exerciseUpdateRequest);
 
-        String uploadPath = "D:\\files";
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + exerciseUpdateRequest.getImgFile();
-        File saveFile = new File(uploadPath, fileName);
-        exerciseUpdateRequest.getImgFile().transferTo(saveFile);
-        exercise.setExerciseImageName(fileName);
-        exercise.setExerciseImagePath(uploadPath + "/" + fileName);
 
-        exerciseRepository.save(exercise);
+        for(int i = 0; i < updatelist.size(); i++){
+            if(updatelist.get(i).getExerciseName() != null) exercise.setExerciseName(updatelist.get(i).getExerciseName());
+            if(updatelist.get(i).getExerciseWeight() != null) exercise.setExerciseWeight(updatelist.get(i).getExerciseWeight());
+            if(updatelist.get(i).getExerciseCount() != null) exercise.setExerciseCount(updatelist.get(i).getExerciseCount());
+            if(updatelist.get(i).getExerciseTime() != null) exercise.setExerciseTime(updatelist.get(i).getExerciseTime());
+            if(updatelist.get(i).getImgFile().getOriginalFilename()!= null){
+                File f = new File(exerciseUpdateRequest.getExerciseImagePath());
+                if(f.exists()){
+                    f.delete();
+                }
+                UUID uuid = UUID.randomUUID();
+                String fileName = uuid + "_" + exerciseUpdateRequest.getImgFile().getOriginalFilename();
+                File saveFile = new File(uploadPath, fileName);
+                exerciseUpdateRequest.getImgFile().transferTo(saveFile);
+                exercise.setExerciseImageName(fileName);
+                exercise.setExerciseImagePath(uploadPath + "/" + fileName);
+            }
+            if(updatelist.get(i).getExerciseShare() != null) exercise.setExerciseShare(updatelist.get(i).getExerciseShare());
+            if(updatelist.get(i).getExerciseDate() != null) exercise.setExerciseDate(updatelist.get(i).getExerciseDate());
+
+            exerciseRepository.save(exercise);
+        }
+
     }
 
     public void delete(final int exerciseCode) {
@@ -131,6 +156,10 @@ public class ExerciseService {
         return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
     }
+
+
+
+
 
 
 }
