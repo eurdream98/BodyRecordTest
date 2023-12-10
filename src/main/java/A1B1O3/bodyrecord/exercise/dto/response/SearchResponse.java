@@ -14,9 +14,9 @@ public class SearchResponse {
 
     private final String exerciseName;
 
-    private final float exerciseWeight;
+    private final Float exerciseWeight;
 
-    private final int exerciseCount;
+    private final Integer exerciseCount;
 
     private final Time exerciseTime;
 

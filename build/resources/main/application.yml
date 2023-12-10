@@ -10,7 +10,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bodyrecord8
+    url: jdbc:mysql://localhost:3306/body_record
     username: root
     password: 1234
   jpa:
@@ -23,10 +23,6 @@ spring:
       platform: mysql
       schema-locations: classpath*:db/schema-mysql.sql
       data-locations: classpath*:db/data-mysql.sql
-
-
-
-
 
   mvc:
     pathmatch:
@@ -46,4 +42,3 @@ jwt:
   secret:
     access: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923
     refresh: asdfjp298pafo1320efqw0udvnh0er0h412r08byfdq9dsvh02143908hfeqwn80fdqs0nfdqs0n412013rq0nqefn08dfas0das730732g86923
-

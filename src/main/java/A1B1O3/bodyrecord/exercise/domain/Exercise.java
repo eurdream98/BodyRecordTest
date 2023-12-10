@@ -4,18 +4,23 @@ import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.member.domain.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
+import static java.time.LocalDate.now;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -26,6 +31,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @SQLDelete(sql = "UPDATE exercise SET state = 'DELETED' WHERE exercise_code = ?")
 @Where(clause = "state = 'USEABLE'")
+@DynamicUpdate
 public class Exercise extends BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -39,11 +45,10 @@ public class Exercise extends BaseEntity {
     @Column(name = "exercise_name")
     private String exerciseName;
     @Column(name = "exercise_weight")
-    private float exerciseWeight;
+    private Float exerciseWeight;
     @Column(name = "exercise_count")
-    private int exerciseCount;
+    private Integer exerciseCount;
     @Column(name = "exercise_time")
-    @JsonFormat(pattern = "hh:mm:ss")
     private Time exerciseTime;
     @Column(name = "exercise_image_path")
     private String exerciseImagePath;
@@ -52,15 +57,14 @@ public class Exercise extends BaseEntity {
     @Column(name = "exercise_share")
     private Boolean exerciseShare;
     @Column(name = "exercise_date")
-    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date exerciseDate;
 
     public Exercise(
             final int exerciseCode,
-            final Member memberCode,
+            final Member member,
             final String exerciseName,
-            final float exerciseWeight,
-            final int exerciseCount,
+            final Float exerciseWeight,
+            final Integer exerciseCount,
             final Time exerciseTime,
             final String exerciseImagePath,
             final String exerciseImageName,
@@ -81,7 +85,7 @@ public class Exercise extends BaseEntity {
     }
 
 
-    public static Exercise of(final Member member, final String exerciseName, final int exerciseCount, final float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImagePath, final String exerciseImageName, final Date exerciseDate) {
+    public static Exercise of(final Member member, final String exerciseName, final Integer exerciseCount, final Float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImagePath, final String exerciseImageName, final Date exerciseDate) {
         return new Exercise(
                 0,
                 member,

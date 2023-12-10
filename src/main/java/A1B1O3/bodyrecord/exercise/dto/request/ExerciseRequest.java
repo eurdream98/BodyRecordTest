@@ -1,13 +1,15 @@
 package A1B1O3.bodyrecord.exercise.dto.request;
 
 import A1B1O3.bodyrecord.member.domain.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 @Getter
@@ -16,9 +18,9 @@ public class ExerciseRequest {
 
     private final String exerciseName;
 
-    private final float exerciseWeight;
+    private final Float exerciseWeight;
 
-    private final int exerciseCount;
+    private final Integer exerciseCount;
 
     private final Time exerciseTime;
 
@@ -28,9 +30,11 @@ public class ExerciseRequest {
 
     private final Boolean exerciseShare;
 
+    @JsonFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private final Date exerciseDate;
 
-    private MultipartFile imgFile;
+    private final MultipartFile imgFile;
 
 }
 
