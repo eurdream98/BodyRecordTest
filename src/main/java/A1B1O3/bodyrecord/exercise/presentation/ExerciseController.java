@@ -5,19 +5,24 @@ import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
-//import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.exercise.service.ExerciseService;
+import A1B1O3.bodyrecord.util.UploadFile;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Value;
+
+
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.util.List;
 
@@ -30,6 +35,7 @@ import java.util.List;
 @RequestMapping("/exercise/log")
 public class ExerciseController {
     private final ExerciseService exerciseService;
+    private final UploadFile uploadFile;
 
     @ApiOperation(value = "나의 운동기록 전체 조회", notes = "회원코드를 기반으로 특정 회원의 운동기록 전체 목록을 보여준다.")
     @ApiImplicitParam(name = "principalDetails", value = "인가된 회원")
@@ -51,10 +57,9 @@ public class ExerciseController {
     })
 
     @GetMapping("/{exerciseCode}")
-    public ResponseEntity<ExerciseDetailResponse> getExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode)
-    {
+    public ResponseEntity<ExerciseDetailResponse> getExercise(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable final int exerciseCode, @Value("${image.image-url}") final String imageUrl) {
         exerciseService.validateExerciseByMember(principalDetails.getMember().getMemberCode(), exerciseCode);
-       final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(exerciseCode);
+       final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(exerciseCode, imageUrl);
        return ResponseEntity.ok(exerciseDetailResponse);
     }
 

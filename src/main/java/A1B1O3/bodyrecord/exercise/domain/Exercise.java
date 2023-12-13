@@ -52,8 +52,6 @@ public class Exercise extends BaseEntity {
     private Time exerciseTime;
     @Column(name = "exercise_image_path")
     private String exerciseImagePath;
-    @Column(name = "exercise_image_name")
-    private String exerciseImageName;
     @Column(name = "exercise_share")
     private Boolean exerciseShare;
     @Column(name = "exercise_date")
@@ -67,7 +65,6 @@ public class Exercise extends BaseEntity {
             final Integer exerciseCount,
             final Time exerciseTime,
             final String exerciseImagePath,
-            final String exerciseImageName,
             final Boolean exerciseShare,
             final Date exerciseDate
     ) {
@@ -79,13 +76,12 @@ public class Exercise extends BaseEntity {
         this.exerciseCount = exerciseCount;
         this.exerciseTime = exerciseTime;
         this.exerciseImagePath = exerciseImagePath;
-        this.exerciseImageName = exerciseImageName;
         this.exerciseShare = exerciseShare;
         this.exerciseDate = exerciseDate;
     }
 
 
-    public static Exercise of(final Member member, final String exerciseName, final Integer exerciseCount, final Float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImagePath, final String exerciseImageName, final Date exerciseDate) {
+    public static Exercise of(final Member member, final String exerciseName, final Integer exerciseCount, final Float exerciseWeight, final Time exerciseTime, final Boolean exerciseShare, final String exerciseImagePath, final Date exerciseDate) {
         return new Exercise(
                 0,
                 member,
@@ -94,7 +90,6 @@ public class Exercise extends BaseEntity {
                 exerciseCount,
                 exerciseTime,
                 exerciseImagePath,
-                exerciseImageName,
                 exerciseShare,
                 exerciseDate
         );
@@ -106,7 +101,6 @@ public class Exercise extends BaseEntity {
         this.exerciseCount = exerciseUpdateRequest.getExerciseCount();
         this.exerciseTime = exerciseUpdateRequest.getExerciseTime();
         this.exerciseImagePath = exerciseUpdateRequest.getExerciseImagePath();
-        this.exerciseImageName = exerciseUpdateRequest.getExerciseImageName();
         this.exerciseShare = exerciseUpdateRequest.getExerciseShare();
         this.exerciseDate = exerciseUpdateRequest.getExerciseDate();
     }

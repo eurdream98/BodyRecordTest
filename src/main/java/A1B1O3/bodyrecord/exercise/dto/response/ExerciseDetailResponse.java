@@ -21,8 +21,6 @@ public class ExerciseDetailResponse {
 
     private final Time exerciseTime;
 
-    private final String exerciseImageName;
-
     private final String exerciseImagePath;
 
     private final Boolean exerciseShare;
@@ -41,7 +39,6 @@ public class ExerciseDetailResponse {
                 exercise.getExerciseWeight(),
                 exercise.getExerciseCount(),
                 exercise.getExerciseTime(),
-                exercise.getExerciseImageName(),
                 exercise.getExerciseImagePath(),
                 exercise.getExerciseShare(),
                 exercise.getExerciseDate(),
