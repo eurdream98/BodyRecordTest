@@ -1,14 +1,13 @@
 package A1B1O3.bodyrecord.exercise.dto.request;
 
-import A1B1O3.bodyrecord.member.domain.Member;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
+
 import java.util.Date;
 import java.sql.Time;
 
@@ -26,7 +25,6 @@ public class ExerciseRequest {
 
     private final String exerciseImagePath;
 
-    private final String exerciseImageName;
 
     private final Boolean exerciseShare;
 

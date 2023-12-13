@@ -14,23 +14,24 @@ import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
+import A1B1O3.bodyrecord.util.UploadFile;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static A1B1O3.bodyrecord.common.exception.type.ExceptionCode.*;
+
 
 
 @Service
@@ -40,7 +41,8 @@ public class ExerciseService {
     private final ExerciseRepository exerciseRepository;
     private final MemberRepository memberRepository;
     private final BodyRepository bodyRepository;
-    private final String uploadPath = "D:/files";
+    private final UploadFile uploadFile;
+
 
 
     @Transactional(readOnly = true)
@@ -53,13 +55,17 @@ public class ExerciseService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
-    public ExerciseDetailResponse getExerciseDetail(final int exerciseCode) {
 
+
+    @Transactional(readOnly = true)
+    public ExerciseDetailResponse getExerciseDetail(final int exerciseCode, final String imageUrl) {
         final Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
+        System.out.println("이미지주소:" + imageUrl);
         return ExerciseDetailResponse.from(exercise);
     }
+
+
 
     @Transactional(readOnly = true)
     public void validateExerciseByMember(final int memberCode, final int exerciseCode) {
@@ -81,17 +87,12 @@ public class ExerciseService {
                 exerciseRequest.getExerciseTime(),
                 exerciseRequest.getExerciseShare(),
                 exerciseRequest.getExerciseImagePath(),
-                exerciseRequest.getExerciseImageName(),
                 exerciseRequest.getExerciseDate()
         );
 
         if(!exerciseRequest.getImgFile().isEmpty()){
-            UUID uuid = UUID.randomUUID();
-            String fileName = uuid + "_" + exerciseRequest.getImgFile().getOriginalFilename();
-            File saveFile = new File(uploadPath, fileName);
-            exerciseRequest.getImgFile().transferTo(saveFile);
-            newExercise.setExerciseImageName(fileName);
-            newExercise.setExerciseImagePath(uploadPath + "/" + fileName);
+            String img = uploadFile.fileUpload(exerciseRequest.getImgFile());
+            newExercise.setExerciseImagePath(img);
         }
 
 
@@ -119,12 +120,8 @@ public class ExerciseService {
                 if(f.exists()){
                     f.delete();
                 }
-                UUID uuid = UUID.randomUUID();
-                String fileName = uuid + "_" + exerciseUpdateRequest.getImgFile().getOriginalFilename();
-                File saveFile = new File(uploadPath, fileName);
-                exerciseUpdateRequest.getImgFile().transferTo(saveFile);
-                exercise.setExerciseImageName(fileName);
-                exercise.setExerciseImagePath(uploadPath + "/" + fileName);
+                String img = uploadFile.fileUpload(exerciseUpdateRequest.getImgFile());
+                exercise.setExerciseImagePath(img);
             }
             if(updatelist.get(i).getExerciseShare() != null) exercise.setExerciseShare(updatelist.get(i).getExerciseShare());
             if(updatelist.get(i).getExerciseDate() != null) exercise.setExerciseDate(updatelist.get(i).getExerciseDate());
@@ -156,10 +153,6 @@ public class ExerciseService {
         return new SliceImpl<>(searchBodyExercise.stream().map(exercise -> SearchResponse.from(exercise)).collect(Collectors.toList()));
 
     }
-
-
-
-
 
 
 }
