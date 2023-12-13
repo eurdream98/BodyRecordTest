@@ -3,7 +3,6 @@ package A1B1O3.bodyrecord.admin.service;
 import A1B1O3.bodyrecord.admin.dto.response.*;
 import A1B1O3.bodyrecord.challenge.domain.repository.*;
 import A1B1O3.bodyrecord.member.domain.Member;
-import A1B1O3.bodyrecord.member.service.MemberService;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import A1B1O3.bodyrecord.report.domain.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class AdminService {
     private final ChallengeParticipateRepository challengeParticipateRepository;
     private final ChallengeCategoryRepository challengeCategoryRepository;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
     private final ChallengeCertificationRepository challengeCertificationRepository;
     private final ReportRepository reportRepository;
     private final ReportCategoryRepository reportCategoryRepository;

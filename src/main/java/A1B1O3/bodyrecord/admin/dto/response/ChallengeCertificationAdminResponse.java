@@ -32,5 +32,4 @@ public class ChallengeCertificationAdminResponse {
                 challengeCertification.getCreatedAt()
         );
     }
-    // HH:mm:ss
 }

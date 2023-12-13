@@ -10,11 +10,15 @@ import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -120,24 +124,36 @@ public class ChallengeService {
 
 
     /* 6. 챌린지 인증 */
-    public ChallengeCertificationResponse certifyChallenge(int challengeCode, int memberCode, ChallengeCertificationRequest challengeCertificationRequest) {
+    private String uploadPath = "C:/uploadfiles";
+
+    public void certifyChallenge(int challengeCode, int memberCode, MultipartFile challengeImageFile) {
         Challenge challenge = challengeRepository
                 .findByChallengeCode(challengeCode)
                 .orElseThrow(() -> new EntityNotFoundException("Challenge not found with code: " + challengeCode));
 
         Member member = (Member) memberRepository.findByMemberCode(memberCode)
-                .orElseThrow(() -> new EntityNotFoundException("Member not found with code: " + challengeCertificationRequest.getMemberCode()));
+                .orElseThrow(() -> new EntityNotFoundException("Member not found with code: " + memberCode));
 
-        ChallengeCertification challengeCertification = new ChallengeCertification();
-        challengeCertification.setChallengeImage(challengeCertificationRequest.getChallengeImage());
-        challengeCertification.setChallengeCode(challenge);
-        challengeCertification.setMemberCode(member);
+        try {
+            ChallengeCertification challengeCertification = new ChallengeCertification();
+            challengeCertification.setChallengeCode(challenge);
+            challengeCertification.setMemberCode(member);
+            challengeCertification.setChallengeImage(saveChallengeImage(challengeImageFile));
 
-        challengeCertificationRepository.save(challengeCertification);
+            challengeCertificationRepository.save(challengeCertification);
+        } catch (IOException e) {
+            //파일 저장 실패
+            e.printStackTrace();
+        }
+    }
 
-        ChallengeCertification savedCertification = challengeCertificationRepository.save(challengeCertification);
-
-        return ChallengeCertificationResponse.from(savedCertification, challenge, member);
+    // 이미지 저장
+    private String saveChallengeImage(MultipartFile challengeImageFile) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + challengeImageFile.getOriginalFilename();
+        File saveFile = new File(uploadPath, fileName);
+        challengeImageFile.transferTo(saveFile);
+        return uploadPath + "/" + fileName;
     }
 
 
