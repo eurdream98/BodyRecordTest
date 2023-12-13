@@ -7,7 +7,10 @@ import A1B1O3.bodyrecord.challenge.dto.response.*;
 import A1B1O3.bodyrecord.common.exception.UnauthorizedException;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
+import A1B1O3.bodyrecord.util.ChallengeUploadFile;
+import A1B1O3.bodyrecord.util.UploadFile;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +28,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class ChallengeService {
+
+    private final ChallengeUploadFile challengeUploadFile;
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeParticipateRepository challengeParticipateRepository;
@@ -124,8 +129,6 @@ public class ChallengeService {
 
 
     /* 6. 챌린지 인증 */
-    private String uploadPath = "C:/uploadfiles";
-
     public void certifyChallenge(int challengeCode, int memberCode, MultipartFile challengeImageFile) {
         Challenge challenge = challengeRepository
                 .findByChallengeCode(challengeCode)
@@ -138,22 +141,13 @@ public class ChallengeService {
             ChallengeCertification challengeCertification = new ChallengeCertification();
             challengeCertification.setChallengeCode(challenge);
             challengeCertification.setMemberCode(member);
-            challengeCertification.setChallengeImage(saveChallengeImage(challengeImageFile));
+            challengeCertification.setChallengeImage(challengeUploadFile.saveChallengeImage(challengeImageFile));
 
             challengeCertificationRepository.save(challengeCertification);
         } catch (IOException e) {
             //파일 저장 실패
             e.printStackTrace();
         }
-    }
-
-    // 이미지 저장
-    private String saveChallengeImage(MultipartFile challengeImageFile) throws IOException {
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + challengeImageFile.getOriginalFilename();
-        File saveFile = new File(uploadPath, fileName);
-        challengeImageFile.transferTo(saveFile);
-        return uploadPath + "/" + fileName;
     }
 
 
