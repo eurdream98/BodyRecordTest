@@ -20,7 +20,4 @@ public class ChallengeCertificationRequest {
 
     @NotNull
     private final int memberCode;
-
-
-
 }

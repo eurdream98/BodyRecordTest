@@ -46,9 +46,5 @@ public class ChallengeCertification extends BaseEntity {
         this.challengecerCode = challengecerCode;
         this.challengeImage = challengeImage;
         this.challengeCode = challengeCode;
-//        this.createdAt = LocalDateTime.now();
-//        this.modifiedAt = LocalDateTime.now();
     }
-
-
 }

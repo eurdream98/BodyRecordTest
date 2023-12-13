@@ -28,6 +28,4 @@ public class ChallengeReportDetailResponse {
                 report.getReportContent()
         );
     }
-
-
 }

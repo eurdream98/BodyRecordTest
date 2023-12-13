@@ -2,15 +2,10 @@ package A1B1O3.bodyrecord.admin.presentation;
 
 import A1B1O3.bodyrecord.admin.dto.response.*;
 import A1B1O3.bodyrecord.admin.service.AdminService;
-import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
-import A1B1O3.bodyrecord.common.exception.UnauthorizedException;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;

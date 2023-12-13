@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -96,20 +97,20 @@ public class ChallengeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "principalDetails", value = "인가된 회원"),
             @ApiImplicitParam(name = "challengeCode", value = "챌린지 코드"),
-            @ApiImplicitParam(name = "challengeCertificationRequest", value = "챌린지 인증 요청 정보"),
+            @ApiImplicitParam(name = "challengeImageFile", value = "챌린지 인증 이미지 파일"),
     })
     @ApiResponses({
             @ApiResponse(code = 201, message = "챌린지 인증 성공"),
     })
     /* 6. 챌린지 인증 */
     @PostMapping("/certify/{challengeCode}")
-    public ResponseEntity<ChallengeCertificationResponse> certifyChallenge(
+    public ResponseEntity<Void> certifyChallenge(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @PathVariable int challengeCode,
-            @RequestBody @Valid ChallengeCertificationRequest challengeCertificationRequest) {
+            @RequestParam("challengeImageFile") MultipartFile challengeImageFile) {
 
-        ChallengeCertificationResponse certifiedChallenge = challengeService.certifyChallenge(challengeCode, principalDetails.getMember().getMemberCode(), challengeCertificationRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(certifiedChallenge);
+        challengeService.certifyChallenge(challengeCode, principalDetails.getMember().getMemberCode(), challengeImageFile);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @ApiOperation(value = "챌린지 인증 조회", notes = "챌린지의 인증 목록을 조회합니다.")
