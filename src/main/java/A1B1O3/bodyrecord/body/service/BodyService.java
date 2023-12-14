@@ -8,10 +8,12 @@ import A1B1O3.bodyrecord.body.dto.request.OnlyBodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
+import A1B1O3.bodyrecord.util.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class BodyService {
 
     private final BodyRepository bodyRepository;
     private final MemberRepository memberRepository;
+    private final UploadFile uploadFile;
     @Transactional(readOnly = true)
    public List<BodyResponse> getAllBodys(final int memberCode){
         final List<Body> bodys = bodyRepository.findAllByMemberCodeMemberCode(memberCode);
@@ -30,12 +33,14 @@ public class BodyService {
                 .collect(Collectors.toList());
     }
     @Transactional
-    public void insert( BodyRequest bodyRequest, PrincipalDetails principalDetails){
+    public void insert( BodyRequest bodyRequest, PrincipalDetails principalDetails) throws IOException {
 
         Member member = memberRepository.findById(principalDetails.getMember().getMemberCode()).orElseThrow();
-        member.updateImageAndNickname(bodyRequest.getMemberImage(),bodyRequest.getMemberNickname());
+        String img = uploadFile.profileUpload(bodyRequest.getImgFile());
+        member.updateImageAndNickname(img,bodyRequest.getMemberNickname());
 
         Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getMuscle(),bodyRequest.getFat(),member);
+
         bodyRepository.save(body);
     }
     @Transactional

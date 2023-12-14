@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/body_record</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@my-database.co85qw0w4e2n.ap-northeast-2.rds.amazonaws.com" uuid="bf579341-96ae-451a-bd89-a45ac57bc3c3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://my-database.co85qw0w4e2n.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

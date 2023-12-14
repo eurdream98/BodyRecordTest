@@ -2,6 +2,7 @@ package A1B1O3.bodyrecord.body.dto.request;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,4 +19,5 @@ public class BodyRequest {
     private final float muscle;
     @NotNull(message="체지방률 입력해주세요")
     private final float fat;
+    private final MultipartFile imgFile;
 }

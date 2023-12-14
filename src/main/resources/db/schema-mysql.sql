@@ -1,9 +1,9 @@
 -- DROP database 스키마명;
 -- CREATE database 스키마명;
 -- USE 스키마명;
-DROP database body_record;
-CREATE database body_record;
-USE body_record;
+DROP database restapi_backend;
+CREATE database restapi_backend;
+USE restapi_backend;
 
 CREATE TABLE `exercise` (
                             `exercise_code`   int   AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -195,6 +195,6 @@ ALTER TABLE `challenge_certification` ADD CONSTRAINT `FK_challenge_TO_challenge_
 ALTER TABLE `challenge_certification` ADD CONSTRAINT `FK_member_TO_challenge_certification_1` FOREIGN KEY (
                                                                                                            `member_code`
     )
-    REFERENCES `challenge` (
+    REFERENCES `member` (
                             `member_code`
         );
