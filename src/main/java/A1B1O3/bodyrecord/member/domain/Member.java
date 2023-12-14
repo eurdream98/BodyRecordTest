@@ -24,6 +24,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Member {
 
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int memberCode;
