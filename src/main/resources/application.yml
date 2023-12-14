@@ -30,18 +30,16 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
 image:
-  image-url: http://43.202.200.11/exerciseimages/
-  image-dir: /exerciseimages
+  image-url: http://localhost:8080/exerciseimages/
+  image-dir: D:/exerciseimages
   add-resource-locations: file:////exerciseimages/
   add-resource-handler: /exerciseimages/**
-
-file:
-  multipart:
-    max-file-size : 10MB
-    max-request-size : 10MB
-    location: D:\files
-    enabled : true
 
 upload:
   path: C:/uploadfiles

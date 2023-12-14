@@ -1,6 +1,7 @@
 package A1B1O3.bodyrecord.exercise.presentation;
 
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
+import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
@@ -14,8 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
@@ -62,6 +66,7 @@ public class ExerciseController {
        final ExerciseDetailResponse exerciseDetailResponse = exerciseService.getExerciseDetail(exerciseCode, imageUrl);
        return ResponseEntity.ok(exerciseDetailResponse);
     }
+
 
     @ApiOperation(value = "운동기록 등록", notes = "회원 자신의 운동기록을 등록한다.")
     @ApiImplicitParams ({
