@@ -61,7 +61,7 @@ public class ExerciseService {
     public ExerciseDetailResponse getExerciseDetail(final int exerciseCode, final String imageUrl) {
         final Exercise exercise = exerciseRepository.findByExerciseCode(exerciseCode)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EXERCISE_LOG_ID));
-        System.out.println("이미지주소:" + imageUrl);
+        exercise.setExerciseImagePath(imageUrl + exercise.getExerciseImagePath());
         return ExerciseDetailResponse.from(exercise);
     }
 
