@@ -60,7 +60,7 @@ public class AdminService {
     /* 3. 챌린지인증신고 목록조회 */
     @Transactional(readOnly = true)
     public List<ChallengeCertificationReportResponse> getChallengeCertificationReports() {
-        ReportCategory challengeReportCategory = reportCategoryRepository.findById(1)
+        ReportCategory challengeReportCategory = reportCategoryRepository.findById(2)
                 .orElseThrow(() -> new EntityNotFoundException("챌린지 신고 카테고리를 찾을 수 없습니다."));
 
         List<Report> challengeCertificationReports = reportRepository.findByReportcategoryCode(challengeReportCategory);
