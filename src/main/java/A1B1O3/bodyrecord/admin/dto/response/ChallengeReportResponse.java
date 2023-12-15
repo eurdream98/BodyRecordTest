@@ -5,6 +5,7 @@ import A1B1O3.bodyrecord.report.domain.repository.Report;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
 import static lombok.AccessLevel.PUBLIC;
 
 @Getter

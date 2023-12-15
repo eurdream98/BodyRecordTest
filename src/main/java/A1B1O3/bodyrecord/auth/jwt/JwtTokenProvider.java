@@ -1,5 +1,6 @@
 package A1B1O3.bodyrecord.auth.jwt;
 
+import A1B1O3.bodyrecord.member.domain.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -51,9 +52,9 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createAccessToken(int memberCode) {
-        Claims claims = Jwts.claims().setSubject(String.valueOf(memberCode)); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
-
+    public String createAccessToken(Member member) {
+        Claims claims = Jwts.claims().setSubject(String.valueOf(member.getMemberCode())); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+        claims.put("memberRole", member.getRole());
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장

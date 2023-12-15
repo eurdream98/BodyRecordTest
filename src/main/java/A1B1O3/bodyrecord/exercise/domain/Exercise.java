@@ -3,24 +3,18 @@ package A1B1O3.bodyrecord.exercise.domain;
 import A1B1O3.bodyrecord.common.BaseEntity;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.member.domain.Member;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
-import java.util.Date;
 import java.sql.Time;
+import java.util.Date;
 
 import static A1B1O3.bodyrecord.common.type.StatusType.USEABLE;
-import static java.time.LocalDate.now;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;

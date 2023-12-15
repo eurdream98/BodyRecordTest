@@ -1,12 +1,10 @@
 package A1B1O3.bodyrecord.challenge.dto.response;
 
 import A1B1O3.bodyrecord.challenge.domain.repository.Challenge;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 

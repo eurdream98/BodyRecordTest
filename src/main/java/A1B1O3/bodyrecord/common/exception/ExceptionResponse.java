@@ -3,6 +3,7 @@ package A1B1O3.bodyrecord.common.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+
 import static lombok.AccessLevel.PRIVATE;
 
 

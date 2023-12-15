@@ -1,4 +1,5 @@
 package A1B1O3.bodyrecord.exercise.service;
+
 import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.domain.repository.BodyRepository;
 import A1B1O3.bodyrecord.common.exception.AuthException;
@@ -8,24 +9,20 @@ import A1B1O3.bodyrecord.exercise.domain.repository.ExerciseRepository;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseRequest;
 import A1B1O3.bodyrecord.exercise.dto.request.ExerciseUpdateRequest;
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseDetailResponse;
-
-
 import A1B1O3.bodyrecord.exercise.dto.response.ExerciseResponse;
 import A1B1O3.bodyrecord.exercise.dto.response.SearchResponse;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
 import A1B1O3.bodyrecord.util.UploadFile;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

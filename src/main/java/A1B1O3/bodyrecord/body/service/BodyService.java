@@ -54,12 +54,4 @@ public Body updateBody(OnlyBodyRequest onlyBodyRequest,PrincipalDetails principa
         bodyRepository.deleteByMemberCodeMemberCode(memberCode);
     }
 
-
-//    @Transactional
-//    public void insertBody(OnlyBodyRequest onlyBodyRequest){
-//        Body body = Body.of2(onlyBodyRequest.getWeight(),onlyBodyRequest.getMuscle(),onlyBodyRequest.getFat());
-//        bodyRepository.save(body);
-//    }
-
-
 }

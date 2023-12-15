@@ -25,7 +25,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             throws IOException {
         PrincipalDetails oAuth2User = (PrincipalDetails) authentication.getPrincipal();
         String targetUrl;
-        String accessToken =  jwtTokenProvider.createAccessToken(oAuth2User.getMember().getMemberCode());
+        String accessToken =  jwtTokenProvider.createAccessToken(oAuth2User.getMember());
         String refreshToken =  jwtTokenProvider.createRefreshToken(oAuth2User.getMember().getMemberCode());
         String isFirst = "false";
 
