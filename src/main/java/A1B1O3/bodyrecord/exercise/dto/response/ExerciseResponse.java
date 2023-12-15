@@ -3,6 +3,7 @@ package A1B1O3.bodyrecord.exercise.dto.response;
 import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
 import java.sql.Time;
@@ -10,6 +11,7 @@ import java.sql.Time;
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
+@Setter
 @RequiredArgsConstructor(access = PRIVATE)
 public class ExerciseResponse {
 

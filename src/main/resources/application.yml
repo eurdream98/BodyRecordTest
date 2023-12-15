@@ -10,41 +10,35 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://bodyrecord.co85qw0w4e2n.ap-northeast-2.rds.amazonaws.com:3306/restapi_backend
-    username: BodyRecord
-    password: tel64370360!
+    url: jdbc:mysql://:3306/restapi_backend
+    username:
+    password:
 
   jpa:
     hibernate:
       ddl-auto: none
     defer-datasource-initialization: true
 
-  sql:
-    init:
-      schema-locations : classpath*:db/schema-mysql.sql
-      data-locations: classpath*:db/data-mysql.sql
-      mode: always
-      platform: mysql
-
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-image:
-  image-url: http://43.202.200.11/exerciseimages/
-  image-dir: C:/
-  add-resource-locations: file:////exerciseimages/
-  add-resource-handler: /exerciseimages/**
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
-file:
-  multipart:
-    max-file-size : 10MB
-    max-request-size : 10MB
-    location: D:\files
-    enabled : true
+server:
+  port: 8001
+
+image:
+  image-url: http://images/
+  image-dir: /images
+  add-resource-locations: file:////images/
+  add-resource-handler: /images/**
 
 upload:
-  path: C:/challengeimages
+  path: /images
 
 jwt:
   time:

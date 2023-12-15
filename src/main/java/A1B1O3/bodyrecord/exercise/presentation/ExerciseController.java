@@ -39,7 +39,6 @@ import java.util.List;
 @RequestMapping("/exercise/log")
 public class ExerciseController {
     private final ExerciseService exerciseService;
-    private final UploadFile uploadFile;
 
     @ApiOperation(value = "나의 운동기록 전체 조회", notes = "회원코드를 기반으로 특정 회원의 운동기록 전체 목록을 보여준다.")
     @ApiImplicitParam(name = "principalDetails", value = "인가된 회원")
