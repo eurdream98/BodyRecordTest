@@ -4,11 +4,10 @@ import A1B1O3.bodyrecord.exercise.domain.Exercise;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor

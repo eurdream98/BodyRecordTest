@@ -5,7 +5,9 @@ import A1B1O3.bodyrecord.report.domain.repository.Report;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
 import java.time.LocalDate;
+
 import static lombok.AccessLevel.PUBLIC;
 
 @Getter

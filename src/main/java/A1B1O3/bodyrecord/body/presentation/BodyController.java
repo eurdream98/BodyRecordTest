@@ -1,7 +1,6 @@
 package A1B1O3.bodyrecord.body.presentation;
 
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
-import A1B1O3.bodyrecord.body.domain.Body;
 import A1B1O3.bodyrecord.body.dto.request.BodyRequest;
 import A1B1O3.bodyrecord.body.dto.request.OnlyBodyRequest;
 import A1B1O3.bodyrecord.body.dto.response.BodyResponse;

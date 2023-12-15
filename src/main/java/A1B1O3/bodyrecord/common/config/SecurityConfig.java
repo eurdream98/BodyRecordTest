@@ -1,21 +1,17 @@
 package A1B1O3.bodyrecord.common.config;
 
+import A1B1O3.bodyrecord.auth.OAuth2SuccessHandler;
 import A1B1O3.bodyrecord.auth.jwt.JwtAccessDeniedHandler;
 import A1B1O3.bodyrecord.auth.jwt.JwtAuthenticationEntryPoint;
 import A1B1O3.bodyrecord.auth.jwt.JwtFilter;
 import A1B1O3.bodyrecord.auth.jwt.JwtTokenProvider;
-import A1B1O3.bodyrecord.auth.OAuth2SuccessHandler;
 import A1B1O3.bodyrecord.auth.service.AuthService;
 import A1B1O3.bodyrecord.auth.service.PrincipalOAuth2DetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -91,7 +87,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         // 로컬 React에서 오는 요청은 CORS 허용해준다.
-        configuration.setAllowedOrigins(Arrays.asList("" ));
+        configuration.setAllowedOrigins(Arrays.asList("http://bodyrecord-deploy.s3-website.ap-northeast-2.amazonaws.com/" ));
         configuration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Content-Type", "Access-Control-Allow-Headers", "Authorization", "X-Requested-With"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

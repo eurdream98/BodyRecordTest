@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.sql.Time;
+import java.util.Date;
 
 import static lombok.AccessLevel.PRIVATE;
 

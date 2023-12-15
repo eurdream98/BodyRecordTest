@@ -1,27 +1,22 @@
 package A1B1O3.bodyrecord.challenge.service;
 
 import A1B1O3.bodyrecord.challenge.domain.repository.*;
-import A1B1O3.bodyrecord.challenge.dto.request.ChallengeCertificationRequest;
 import A1B1O3.bodyrecord.challenge.dto.request.ChallengeRequest;
 import A1B1O3.bodyrecord.challenge.dto.response.*;
 import A1B1O3.bodyrecord.common.exception.UnauthorizedException;
 import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.repository.MemberRepository;
-import A1B1O3.bodyrecord.util.ChallengeUploadFile;
 import A1B1O3.bodyrecord.util.UploadFile;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +24,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ChallengeService {
 
-    private final ChallengeUploadFile challengeUploadFile;
+    private final UploadFile uploadFile;
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeParticipateRepository challengeParticipateRepository;
@@ -141,7 +136,7 @@ public class ChallengeService {
             ChallengeCertification challengeCertification = new ChallengeCertification();
             challengeCertification.setChallengeCode(challenge);
             challengeCertification.setMemberCode(member);
-            challengeCertification.setChallengeImage(challengeUploadFile.saveChallengeImage(challengeImageFile));
+            challengeCertification.setChallengeImage(uploadFile.saveChallengeImage(challengeImageFile));
 
             challengeCertificationRepository.save(challengeCertification);
         } catch (IOException e) {

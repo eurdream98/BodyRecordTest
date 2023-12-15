@@ -6,8 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.UUID;
 
 @Component
@@ -16,8 +14,8 @@ public class UploadFile {
     private String uploadPath;
 
 
-    public String makeDir(){
-        String exerciseImages = File.separator + "exerciseImages";
+    public String makeDir(String dirName){
+        String exerciseImages = File.separator + dirName;
         if(!new File(uploadPath + exerciseImages, exerciseImages).exists()) {
             new File(uploadPath, exerciseImages).mkdir();
         }
@@ -28,7 +26,7 @@ public class UploadFile {
     public String fileUpload(MultipartFile file) throws IOException {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
-        String dir = makeDir();
+        String dir = makeDir("exerciseImages");
         File saveFile = new File(uploadPath + dir, fileName);
         saveFile.createNewFile();
         file.transferTo(saveFile);
@@ -37,9 +35,20 @@ public class UploadFile {
     public String profileUpload(MultipartFile file) throws IOException {
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
+        String dir = makeDir("profileImages");
         File saveFile = new File(uploadPath, fileName);
         saveFile.createNewFile();
         file.transferTo(saveFile);
-        return fileName;
+        return (dir + "/" + fileName);
     }
+
+    public String saveChallengeImage(MultipartFile challengeImageFile) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + challengeImageFile.getOriginalFilename();
+        String dir =makeDir("challengeImages");
+        File saveFile = new File(uploadPath, fileName);
+        challengeImageFile.transferTo(saveFile);
+        return (dir + "/" + fileName);
+    }
+
 }

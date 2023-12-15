@@ -1,7 +1,6 @@
 package A1B1O3.bodyrecord.challenge.presentation;
 
 import A1B1O3.bodyrecord.auth.domain.PrincipalDetails;
-import A1B1O3.bodyrecord.challenge.dto.request.ChallengeCertificationRequest;
 import A1B1O3.bodyrecord.challenge.dto.request.ChallengeRequest;
 import A1B1O3.bodyrecord.challenge.dto.response.*;
 import A1B1O3.bodyrecord.challenge.service.ChallengeService;
