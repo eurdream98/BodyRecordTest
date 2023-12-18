@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,14 @@ public class MemberService {
         final List<Member> members = memberRepository.findAll();
         return members.stream()
                 .map(member -> MemberResponse.from(member))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MemberResponse> getMembers(final int memberCode){
+        final List<Member> members = memberRepository.findAllById(Collections.singleton(memberCode));
+        return members.stream()
+                .map(member -> MemberResponse.from2(member))
                 .collect(Collectors.toList());
     }
 
