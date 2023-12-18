@@ -19,5 +19,4 @@ public class BodyRequest {
     private final float muscle;
     @NotNull(message="체지방률 입력해주세요")
     private final float fat;
-    private final MultipartFile imgFile;
 }

@@ -4,6 +4,7 @@ import A1B1O3.bodyrecord.member.domain.Member;
 import A1B1O3.bodyrecord.member.domain.MemberState;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import static lombok.AccessLevel.PRIVATE;
 

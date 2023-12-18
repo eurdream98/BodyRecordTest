@@ -3,6 +3,7 @@ package A1B1O3.bodyrecord.member.presentation;
 import A1B1O3.bodyrecord.member.dto.response.MemberResponse;
 import A1B1O3.bodyrecord.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

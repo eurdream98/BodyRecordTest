@@ -33,14 +33,12 @@ public class BodyService {
                 .collect(Collectors.toList());
     }
     @Transactional
-    public void insert( BodyRequest bodyRequest, PrincipalDetails principalDetails) throws IOException {
+    public void insert( BodyRequest bodyRequest, PrincipalDetails principalDetails){
 
         Member member = memberRepository.findById(principalDetails.getMember().getMemberCode()).orElseThrow();
-        String img = uploadFile.profileUpload(bodyRequest.getImgFile());
-        member.updateImageAndNickname(img,bodyRequest.getMemberNickname());
+        member.updateImageAndNickname(bodyRequest.getMemberImage(),bodyRequest.getMemberNickname());
 
         Body body = Body.of(bodyRequest.getWeight(),bodyRequest.getMuscle(),bodyRequest.getFat(),member);
-
         bodyRepository.save(body);
     }
     @Transactional
